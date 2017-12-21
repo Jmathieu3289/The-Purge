@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -12,6 +13,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { AuthService } from './services/auth.service';
 import { DashboardComponent } from './main/components/dashboard/dashboard.component';
 import { AuthGuard } from './auth.guard';
+import { SpinnerComponent } from './shared/components/spinner/spinner.component';
+
 
 @NgModule({
   declarations: [
@@ -20,13 +23,15 @@ import { AuthGuard } from './auth.guard';
     RegisterComponent,
     LoginScreenComponent,
     NavBarComponent,
-    DashboardComponent
+    DashboardComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    HttpModule
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]

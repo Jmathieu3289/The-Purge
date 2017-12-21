@@ -1,5 +1,5 @@
 //Imports
-import { Users } from './models/users';
+const Users = require('./models/users');
 
 //Consts
 const express = require('express');
@@ -7,6 +7,7 @@ const router = express.Router();
 const objection = require('objection');
 const Model = objection.Model;
 const Knex = require('knex');
+const bcrypt = require('bcrypt');
 
 // Initialize knex connection. Make sure your .env file has correct keys.
 const knex = Knex({
@@ -37,8 +38,38 @@ router.get('/users', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    console.log(req.body);
-    res.status(200).send(req.body);
+
+    var response = {
+        data: null,
+        errors: []
+    };
+
+    if (req.body.email == null || req.body.password == null) {
+        response.errors.push('Invalid email or password.');
+        res.status(200).send(response);
+    } else {
+        Users
+            .query()
+            .where('email', '=', req.body.email)
+            .then(user => {
+                if (user == null || user.length == 0) {
+                    response.errors.push('Invalid email or password.');
+                    res.status(200).send(response);
+                } else {
+                    var u = user[0];
+                    var that = this;
+                    bcrypt.compare(req.body.password, u.password, function (err, r) {
+                        if (r) {
+                            delete u.password; //Don't send the user their own encrypted password.
+                            response.data = u;
+                        } else {
+                            response.errors.push('Invalid email or password.');
+                        }
+                        res.status(200).send(response);
+                    });
+                }
+            });
+    }
 });
 
 // ---------------------------------------------------------------------------

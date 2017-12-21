@@ -1,15 +1,24 @@
-<form (ngSubmit)="login($event)" novalidate>
+<app-spinner [hidden]="!loading" class="mt-5"></app-spinner>
+<form name="mainForm" #mainForm="ngForm" (ngSubmit)="login()" [hidden]="loading">
     <div class="form-group mb-0">
-        <input name="fEmail" type="email" class="form-control form-control-lg" placeholder="Email Address" required>
+        <input name="fEmail" type="email" class="form-control form-control-lg" [(ngModel)]="email" placeholder="Email Address" required>
     </div>
     <div class="form-group mb-1">
-        <input name="fPassword" type="password" class="form-control form-control-lg" placeholder="Password" required>
+        <input name="fPassword" type="password" class="form-control form-control-lg" [(ngModel)]="password" placeholder="Password" required>
     </div>
     <div class="form-group mb-4">
         <span class="switch">
             <input name="fRememberMe" type="checkbox" class="switch" id="remember-me-id">
             <label for="remember-me-id">Remember Me</label>
         </span>
+    </div>
+    <div *ngIf="hasErrors" class="alert alert-danger">
+        <div>
+            <span>Invalid email address or password.</span>
+        </div>
+        <div>
+            <button class="btn btn-link p-0">Recover my account.</button>
+        </div>
     </div>
     <button type="submit" class="btn btn-lg btn-primary btn-block"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</button>
 </form>
