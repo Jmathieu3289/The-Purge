@@ -1,33 +1,33 @@
-<div class="container-fluid full-height" id="login" hidden>
+<div class="container-fluid full-height" id="login">
     <div class="d-flex h-100 flex-column justify-content-center">
         <div class="row mb-4 justify-content-center">
             <h1 class="mb-0"><span class="text-danger">Purge</span> It</h1>
         </div>
-        <!--<div class="row mb-4 justify-content-center">
-            <h3 class="text-muted">Because it has to go.</h3>
-        </div>-->
         <div class="row justify-content-center">
-            <div class="col-lg-3 col-sm-12 justify-content-left">
-                <form>
-                        <div class="form-group mb-0">
-                            <input type="email" class="form-control form-control-lg" placeholder="Email Address">
-                        </div>
-                        <div class="form-group mb-1">
-                            <input type="password" class="form-control form-control-lg" placeholder="Password">
-                        </div>
-                        <div class="form-check mb-4">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" value="remember me">
-                                Remember Me
-                            </label>
-                        </div>                    
-                        <button type="submit" class="btn btn-lg btn-primary btn-block">Log in</button>
-                </form>
+            <div class="col-lg-3 col-sm-12">
+                <ul class="nav nav-tabs" role="tablist" id="loginTab">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login-form" role="tab" aria-controls="login" aria-selected="true">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="register-tab" data-toggle="tab" href="#register-form" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="tab-content col-lg-3 col-sm-12" id="loginTabContent">
+                <div class="tab-pane fade show active" id="login-form" role="tabpanel" aria-labelledby="login-tab">
+                    <app-login></app-login>
+                </div>
+                <div class="tab-pane fade" id="register-form" role="tabpanel" aria-labelledby="register-tab">
+                    <app-register></app-register>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<div class="container-fluid full-height p-0 pb-2" id="mainContent">
+<div class="container-fluid full-height p-0 pb-2" id="mainContent" hidden>
     <div class="d-flex h-100 flex-column">
         <div class="row text-white bg-danger p-1 m-0">
             <div class="col-auto">
