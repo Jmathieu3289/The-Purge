@@ -1,23 +1,9 @@
 // Get dependencies
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
-const objection = require('objection');
-const Model = objection.Model;
-const Knex = require('knex');
-
-// Initialize knex connection. Make sure your .env file has correct keys.
-const knex = Knex({
-    client: 'mysql',
-    useNullAsDefault: true,
-    connection: {
-        host: process.env.MYSQL_HOST,
-        user: process.env.MYSQL_USER,
-        password: process.env.MYSQL_PASSWORD,
-        database: process.env.MYSQL_DATABASE
-    }
-});
 
 // Get our API routes
 const api = require('./server/routes/api');
