@@ -3,11 +3,14 @@ const Users = require('./models/users');
 
 //Consts
 const express = require('express');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const router = express.Router();
 const objection = require('objection');
 const Model = objection.Model;
 const Knex = require('knex');
 const bcrypt = require('bcrypt');
+require('dotenv').config();
 
 // Initialize knex connection. Make sure your .env file has correct keys.
 const knex = Knex({
@@ -37,7 +40,15 @@ router.get('/users', (req, res) => {
     });
 });
 
-router.post('/login', (req, res) => {
+router.post('/register', passport.authenticate('local-signup', {
+    successRedirect: '/dashboard',
+    failureRedirect: '/login'
+}));
+
+router.post('/login', passport.authenticate('local-signin', {
+}));
+
+/*router.post('/login', (req, res) => {
 
     var response = {
         data: null,
@@ -70,7 +81,7 @@ router.post('/login', (req, res) => {
                 }
             });
     }
-});
+});*/
 
 // ---------------------------------------------------------------------------
 
