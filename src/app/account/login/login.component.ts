@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
 
     public email: string;
     public password: string;
+    public rememberMe: boolean;
 
     public loading: boolean = false;
     public hasErrors: boolean = false;
@@ -22,6 +23,14 @@ export class LoginComponent implements OnInit {
                 private router: Router) { }
 
     ngOnInit() {
+        if (this._authService.authenticated) {
+            this.router.navigate(['./dashboard']);
+        }
+        
+        this.email = localStorage.getItem('saved_email'); //attempt to bring in a saved email address
+        if (this.email != null && this.email != '') {
+            this.rememberMe = true;
+        }
     }
 
     public login(): void {
@@ -34,8 +43,8 @@ export class LoginComponent implements OnInit {
         }
 
         this.loading = true;
-        this._authService.login(this.email, this.password).subscribe(res => {
-            if (this._authService.authenticated()) {
+        this._authService.login(this.email, this.password, this.rememberMe).subscribe(res => {
+            if (this._authService.authenticated) {
                 this.router.navigate(['./dashboard']);
             } else {
                 this.hasErrors = true;

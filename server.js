@@ -3,7 +3,6 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const http = require('http');
-const passport = require('passport');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -14,22 +13,16 @@ const api = require('./server/routes/api');
 
 // configuration ===========================================================
 
+// parsers for POST data
+app.use(cookieParser());
+app.use(bodyParser.json());
+
 // middleware for session data
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
 }));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-// parser for cookie data
-app.use(cookieParser());
-
-// parsers for POST data
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 
 // point static path to public
 app.use(express.static(path.join(__dirname, 'public')));
@@ -43,7 +36,6 @@ app.get('*', (req, res) => {
 });
 
 const Users = require('./server/routes/models/users');
-require('./server/config/passport/passport')(passport, Users);
 
 /**
  * get port from environment and store in Express.

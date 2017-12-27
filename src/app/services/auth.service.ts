@@ -9,16 +9,23 @@ import { User } from '../models/user';
 export class AuthService {
 
     readonly LOGIN_URL = '/api/login';
+    readonly SESSION_URL = '/api/session';
+    public authenticated: boolean = true;
 
-    private user: User;
-
-    constructor(private http: Http) { }
-
-    public authenticated(): boolean {
-        return this.user != null;
+    constructor(private http: Http) { 
+        this.updateAuthentication();
     }
 
-    public login(email: string, password: string):  Observable<DBResponse> {
+    private updateAuthentication() {
+        this.http.get(this.SESSION_URL, {
+
+        }).subscribe((res: Response) => {
+            let r: DBResponse = res.json();
+            this.authenticated = r.errors.length == 0;
+        });
+    }
+
+    public login(email: string, password: string, rememberMe: boolean):  Observable<DBResponse> {
         
         return this.http.post(this.LOGIN_URL, {
             email: email,
@@ -27,7 +34,13 @@ export class AuthService {
             .map((res: Response) => {
                 let r: DBResponse = res.json();
                 if (r.data != null) {
-                    this.user = r.data as User;
+                    let user: User = r.data as User;
+                    if (rememberMe) {
+                        localStorage.setItem('saved_email', user.email);
+                    } else {
+                        localStorage.removeItem('saved_email');
+                    }
+                    this.updateAuthentication();
                 }
                 return r;
             })

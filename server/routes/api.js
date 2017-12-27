@@ -3,8 +3,6 @@ const Users = require('./models/users');
 
 //Consts
 const express = require('express');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 const router = express.Router();
 const objection = require('objection');
 const Model = objection.Model;
@@ -35,20 +33,36 @@ router.get('/', (req, res) => {
 });
 
 router.get('/users', (req, res) => {
+
+    //Must be logged in to get user details
+    if (req.session.user == null) {
+        res.status(200).send('BAD');
+    }
+
     Users.query().then(users => {
         res.status(200).send(users);
     });
 });
 
-router.post('/register', passport.authenticate('local-signup', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/login'
-}));
+router.get('/session', (req, res) => {
 
-router.post('/login', passport.authenticate('local-signin', {
-}));
+    var response = {
+        data: null,
+        errors: []
+    };
 
-/*router.post('/login', (req, res) => {
+    if (req.session.user == null) {
+        response.errors.push('No session');
+    }
+
+    res.status(200).send(response);
+
+});
+
+router.post('/register', (req, res) => {
+});
+
+router.post('/login', (req, res) => {
 
     var response = {
         data: null,
@@ -68,11 +82,14 @@ router.post('/login', passport.authenticate('local-signin', {
                     res.status(200).send(response);
                 } else {
                     var u = user[0];
-                    var that = this;
                     bcrypt.compare(req.body.password, u.password, function (err, r) {
                         if (r) {
                             delete u.password; //Don't send the user their own encrypted password.
                             response.data = u;
+
+                            //Set session data
+                            req.session.user = u;
+
                         } else {
                             response.errors.push('Invalid email or password.');
                         }
@@ -81,7 +98,7 @@ router.post('/login', passport.authenticate('local-signin', {
                 }
             });
     }
-});*/
+});
 
 // ---------------------------------------------------------------------------
 

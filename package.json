@@ -35,8 +35,6 @@
     "knex": "^0.14.2",
     "mysql": "^2.15.0",
     "objection": "^0.9.3",
-    "passport": "^0.4.0",
-    "passport-local": "^1.0.0",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"
   },
