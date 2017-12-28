@@ -8,9 +8,17 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-    constructor(private _authService: AuthService) { }
+    public mobile = false;
+    
+    constructor(private _authService: AuthService) { 
+        this.mobile = window.screen.width <= 992;
+    }
 
     ngOnInit() {
+    }
+
+    public onResize(event) {
+        this.mobile = window.screen.width <= 992;
     }
 
 }
