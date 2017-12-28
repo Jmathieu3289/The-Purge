@@ -9,11 +9,13 @@ import { LoginComponent } from './account/login/login.component';
 import { RegisterComponent } from './account/register/register.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { LoginScreenComponent } from './account/login-screen/login-screen.component';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { AuthService } from './services/auth.service';
 import { DashboardComponent } from './main/components/dashboard/dashboard.component';
 import { AuthGuard } from './auth.guard';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
+import { NavbarComponent } from './main/components/navbar/navbar.component';
+import { PurgeComponent } from './main/components/purge/purge.component';
+import { ProgressService } from './services/progress.service';
 
 
 @NgModule({
@@ -22,9 +24,10 @@ import { SpinnerComponent } from './shared/components/spinner/spinner.component'
     LoginComponent,
     RegisterComponent,
     LoginScreenComponent,
-    NavBarComponent,
     DashboardComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    NavbarComponent,
+    PurgeComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,7 @@ import { SpinnerComponent } from './shared/components/spinner/spinner.component'
     HttpClientModule,
     HttpModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, ProgressService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

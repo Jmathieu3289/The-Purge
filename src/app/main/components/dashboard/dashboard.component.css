@@ -1,0 +1,9 @@
+.progress span {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px;
+    font-weight: bold;
+}

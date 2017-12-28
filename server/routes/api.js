@@ -1,5 +1,7 @@
 //Imports
 const Users = require('./models/users');
+const Progress = require('./models/progress');
+const Categories = require('./models/categories');
 
 //Consts
 const express = require('express');
@@ -32,16 +34,44 @@ router.get('/', (req, res) => {
     res.send('');
 });
 
-router.get('/users', (req, res) => {
+router.get('/categories', (req, res) => {
+
+    var response = {
+        data: null,
+        errors: []
+    };
 
     //Must be logged in to get user details
-    if (req.session.user == null) {
-        res.status(200).send('BAD');
+    if (req.session.user == undefined) {
+        response.errors.push('Not authorized');
+        res.status(200).send(response);
     }
 
-    Users.query().then(users => {
-        res.status(200).send(users);
+    Categories.query().then(categories => {
+        response.data = categories;
+        res.status(200).send(response);
     });
+
+});
+
+router.get('/progress', (req, res) => {
+
+    var response = {
+        data: null,
+        errors: []
+    };
+
+    //Must be logged in to get user details
+    if (req.session.user == undefined) {
+        response.errors.push('Not authorized');
+        res.status(200).send(response);
+    }
+
+    Progress.query().where('user_id', '=', req.session.user.id).then(progress => {
+        response.data = progress;
+        res.status(200).send(response);
+    });
+
 });
 
 router.get('/session', (req, res) => {
@@ -60,6 +90,22 @@ router.get('/session', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
+});
+
+router.post('/logout', (req, res) => {
+
+    var response = {
+        data: null,
+        errors: []
+    };
+
+    req.session.destroy((err) => {
+        if (err) {
+            response.errors.push(err);
+        }
+        res.status(200).send(response);
+    });
+    
 });
 
 router.post('/login', (req, res) => {

@@ -1,88 +1,45 @@
-<div>
-    <div class="row text-white bg-danger p-1 m-0">
-        <div class="col-auto">
-            <i class="fa fa-bars"></i>
-        </div>
-        <div class="col">
-            <h5 class="mb-1">Progress</h5>
-        </div>
-    </div>
-    <div class="row p-1 m-1 h-75 mb-auto scroll-y">
-        <div class="col">
-            <div class="row">
-                <div class="col-11">
-                    Books
-                    <div class="progress" style="height: 30px;">
-                        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 50%;">5/10</div>
-                    </div>
-                </div>
-                <div class="col-1 text-center p-0">
-                    <i class="fa fa-credit-card"></i>
-                    <div class="progress" style="height: 30px;">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;">4</div>
-                    </div>
+<app-navbar></app-navbar>
+<div class="row m-1 pb-2" id="collapseProgress">
+    <div class="col">
+        <div class="row" *ngFor="let p of progressList; let i = index;">
+            <div class="col-10 col-md-10 p-1">
+                {{p.category}}
+                <div class="progress" style="height: 30px;">
+                    <div class="progress-bar" role="progressbar" [style.width.%]="(p.current_count/p.max_count)*100"></div>
+                    <span>{{p.current_count}}/{{p.max_count}}</span>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-11">
-                    Clothes
-                    <div class="progress" style="height: 30px;">
-                        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 75%;">3/4</div>
-                    </div>
-                </div>
-                <div class="col-1 text-center p-0">
-                    &nbsp;
-                    <div class="progress" style="height: 30px;">
-                        <div class="progress-bar bg-danger" role="progressbar" style="width: 100%;">0</div>
-                    </div>
+            <div class="col-2 col-md-1 text-center p-1">
+                <i *ngIf="i==0" class="fa fa-credit-card"></i>
+                <span *ngIf="i>0">&nbsp;</span>
+                <div style="height: 30px;">
+                    <button class="btn btn-sm btn-block btn-success p-0 pb-1" style="height: 30px;" [disabled]="p.credits==0">{{p.credits}}</button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-11">
-                    Miscellaneous
-                    <div class="progress" style="height: 30px;">
-                        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 75%;">3/4</div>
-                    </div>
-                </div>
-                <div class="col-1 text-center p-0">
-                    &nbsp;
-                    <div class="progress" style="height: 30px;">
-                        <div class="progress-bar bg-danger" role="progressbar" style="width: 100%;">0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-11">
-                    Pounds
-                    <div class="progress" style="height: 30px;">
-                        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 75%;">3/4</div>
-                    </div>
-                </div>
-                <div class="col-1 text-center p-0">
-                    &nbsp;
-                    <div class="progress" style="height: 30px;">
-                        <div class="progress-bar bg-danger" role="progressbar" style="width: 100%;">0</div>
-                    </div>
+            <div class="d-none d-sm-block col-md-1 text-center p-1">
+                <span >&nbsp;</span>
+                <div style="height: 30px;">
+                    <button class="btn btn-sm btn-block btn-danger p-0 pb-1" style="height: 30px;">Purge</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row p-1 mb-2">
+</div>
+<div class="border bg-dark fixed-bottom d-sm-block d-md-none">
+    <div class="row p-1">
         <div class="col-12">
-            <button class="btn btn-success btn-block text-white p-4">
+            <button class="btn btn-danger btn-block btn-purge text-white p-2">
                 <h2>
-                    <i class="fa fa-shopping-cart mr-2"></i>
-                    <span>Spend Credits</span>
+                    <span>Purge</span>
                 </h2>
             </button>
         </div>
     </div>
-    <div class="row p-1 mb-2">
+    <div class="row px-1 py-0 pb-1">
         <div class="col-12">
-            <button class="btn btn-danger btn-block btn-purge text-white p-4">
+            <button class="btn btn-success btn-block text-white p-2">
                 <h2>
-                    <i class="far fa-trash-alt mr-2"></i>
-                    <span>Purge</span>
+                    <span>Spend Credits</span>
                 </h2>
             </button>
         </div>

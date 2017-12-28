@@ -1,1 +1,41 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Bungee');
+
+body {
+    overflow-x: hidden;
+}
+
+.progress-bar {
+    background-color: #81D4FA !important;
+    transition: width 2s !important;
+}
+
+.btn-success {
+    background-color: #66BB6A !important;
+    border-color: #66BB6A !important;
+    cursor: pointer;
+}
+
+.btn-success:hover {
+    background-color: #4CAF50 !important;
+}
+
+.btn-danger {
+    background-color: #e74c3c !important;
+    border-color: #e74c3c !important;
+}
+
+.btn-danger:hover {
+    background-color: #f44336 !important;
+}
+
+.btn:disabled {
+    cursor: not-allowed;
+}
+
+.bg-danger-lite {
+    background-color: #212121 !important;
+}
+
+.purge {
+    font-family: 'Bungee', cursive;
+}

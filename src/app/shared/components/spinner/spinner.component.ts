@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-spinner',
@@ -6,6 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./spinner.component.css']
 })
 export class SpinnerComponent implements OnInit {
+
+    @Input() primaryColor: string = '#dc3545';
+    @Input() altColor: string = '#000'; 
+    @Input() size: string = '128px';
+    @Input() padding: string = '100px'; 
 
   constructor() { }
 

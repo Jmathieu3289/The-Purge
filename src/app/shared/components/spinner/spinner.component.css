@@ -15,7 +15,7 @@
       border-radius: 50%;
       border: 2px solid transparent;
       border-top-color: #dc3545;
-      animation: fingerprint-spinner-animation 1500ms cubic-bezier(0.680, -0.750, 0.265, 1.750) infinite forwards;
+      animation: fingerprint-spinner-animation 3000ms cubic-bezier(0.680, -0.750, 0.265, 1.750) infinite forwards;
       margin: auto;
       bottom: 0;
       left: 0;
@@ -26,56 +26,59 @@
     .fingerprint-spinner .spinner-ring:nth-child(1) {
       height: calc(60px / 9 + 0 * 60px / 9);
       width: calc(60px / 9 + 0 * 60px / 9);
-      animation-delay: calc(50ms * 1);
+      animation-delay: calc(100ms * 1);
     }
 
     .fingerprint-spinner .spinner-ring:nth-child(2) {
       height: calc(60px / 9 + 1 * 60px / 9);
       width: calc(60px / 9 + 1 * 60px / 9);
-      animation-delay: calc(50ms * 2);
+      animation-delay: calc(100ms * 2);
     }
 
     .fingerprint-spinner .spinner-ring:nth-child(3) {
       height: calc(60px / 9 + 2 * 60px / 9);
       width: calc(60px / 9 + 2 * 60px / 9);
-      animation-delay: calc(50ms * 3);
+      animation-delay: calc(100ms * 3);
     }
 
     .fingerprint-spinner .spinner-ring:nth-child(4) {
       height: calc(60px / 9 + 3 * 60px / 9);
       width: calc(60px / 9 + 3 * 60px / 9);
-      animation-delay: calc(50ms * 4);
+      animation-delay: calc(100ms * 4);
     }
 
     .fingerprint-spinner .spinner-ring:nth-child(5) {
       height: calc(60px / 9 + 4 * 60px / 9);
       width: calc(60px / 9 + 4 * 60px / 9);
-      animation-delay: calc(50ms * 5);
+      animation-delay: calc(100ms * 5);
     }
 
     .fingerprint-spinner .spinner-ring:nth-child(6) {
       height: calc(60px / 9 + 5 * 60px / 9);
       width: calc(60px / 9 + 5 * 60px / 9);
-      animation-delay: calc(50ms * 6);
+      animation-delay: calc(100ms * 6);
     }
 
     .fingerprint-spinner .spinner-ring:nth-child(7) {
-      border-top-color: #000;
       height: calc(60px / 9 + 6 * 60px / 9);
       width: calc(60px / 9 + 6 * 60px / 9);
-      animation-delay: calc(50ms * 7);
+      animation-delay: calc(100ms * 7);
     }
 
     .fingerprint-spinner .spinner-ring:nth-child(8) {
       height: calc(60px / 9 + 7 * 60px / 9);
       width: calc(60px / 9 + 7 * 60px / 9);
-      animation-delay: calc(50ms * 8);
+      animation-delay: calc(100ms * 8);
     }
 
     .fingerprint-spinner .spinner-ring:nth-child(9) {
       height: calc(60px / 9 + 8 * 60px / 9);
       width: calc(60px / 9 + 8 * 60px / 9);
-      animation-delay: calc(50ms * 9);
+      animation-delay: calc(100ms * 9);
+    }
+
+    .fingerprint-spinner .spinner-ring-alt {
+        border-top-color: #000;
     }
 
     @keyframes fingerprint-spinner-animation {
