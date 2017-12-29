@@ -26,5 +26,9 @@ export class DashboardComponent implements OnInit {
             }
         });
     }
+
+    public purge(progress: Progress): void {
+        
+    }
     
 }

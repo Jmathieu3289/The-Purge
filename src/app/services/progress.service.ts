@@ -8,6 +8,7 @@ import { DBResponse } from '../models/db-response';
 export class ProgressService {
 
     private readonly GET_PROGRESS_URL = '/api/progress';
+    private readonly POST_PURGE_URL = '/api/purge';
 
     constructor(private http: Http) {
     }
@@ -19,6 +20,17 @@ export class ProgressService {
                 let r: DBResponse = res.json();
                 return r;
             })
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    public purge(progress_id: number, amount: number): Observable<DBResponse> {
+        return this.http.post(this.POST_PURGE_URL, {
+            progress_id: progress_id,
+            amount: amount
+        }).map((res: Response) => {
+            let r: DBResponse = res.json();
+            return r;
+        })
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 

@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
 
     public loading: boolean = false;
     public hasErrors: boolean = false;
+    public submitted: boolean = false;
 
     constructor(private _authService: AuthService,
                 private router: Router) { }
@@ -48,6 +49,7 @@ export class LoginComponent implements OnInit {
     public login(): void {
 
         this.hasErrors = false;
+        this.submitted = true;
 
         //Check validation first
         if (this.form.invalid) {

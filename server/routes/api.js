@@ -41,7 +41,7 @@ router.get('/categories', (req, res) => {
         errors: []
     };
 
-    //Must be logged in to get user details
+    //Must be logged in to get category details
     if (req.session.user == undefined) {
         response.errors.push('Not authorized');
         res.status(200).send(response);
@@ -53,6 +53,8 @@ router.get('/categories', (req, res) => {
     });
 
 });
+
+/* -- PROGRESS -- */
 
 router.get('/progress', (req, res) => {
 
@@ -73,6 +75,50 @@ router.get('/progress', (req, res) => {
     });
 
 });
+
+router.post('/purge', (req, res) => {
+
+    var response = {
+        data: null,
+        errors: []
+    };
+
+    //Must be logged in to get user details
+    if (req.session.user == undefined) {
+        response.errors.push('Not authorized');
+        
+    }
+
+    if (req.body.progress_id == null) {
+        response.errors.push('progress_id required');
+    }
+
+    if (req.body.amount == null) {
+        response.errors.push('amount required');
+    }
+
+    if (response.errors.length > 0) {
+        res.status(200).send(response);
+    }
+
+    //Get the existing progress first
+    Progress
+        .query()
+        .findOne('id', '=', req.body.progress_id)
+        .then(progress => {
+            res.status(200).send(response);
+        })
+        .catch(err => {
+            response.errors.push(err);
+            res.status(200).send(response);
+        });
+
+
+});
+
+/* -- END PROGRESS -- */
+
+/* -- SESSION MANAGEMENT --*/
 
 router.get('/session', (req, res) => {
 
@@ -145,6 +191,8 @@ router.post('/login', (req, res) => {
             });
     }
 });
+
+/* -- END SESSION MANAGEMENT --*/
 
 // ---------------------------------------------------------------------------
 

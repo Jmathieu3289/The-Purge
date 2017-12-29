@@ -42,7 +42,7 @@ export class AuthService {
             }
             return r;
         })
-        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+        .catch((error: any) => Observable.throw(error || 'Server error'));
         
     }
 
@@ -53,7 +53,7 @@ export class AuthService {
             let r: DBResponse = res.json();
             return r;
         })
-        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+        .catch((error: any) => Observable.throw(error || 'Server error'));
     }
 
 }

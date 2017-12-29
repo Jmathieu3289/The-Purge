@@ -1,4 +1,4 @@
-<nav class="navbar sticky-top navbar-dark navbar-expand-lg bg-danger-lite p-2" (window:resize)="onResize($event)">
+<nav class="navbar sticky-top navbar-dark navbar-expand-lg bg-danger-lite p-2" (window:resize)="onResize($event)" *ngIf="!isLogin()">
     <span class="navbar-brand mr-4" href="#">
         <span class="purge">Purge</span> IT</span> 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" #navButton
@@ -26,6 +26,9 @@
             <div class="dropdown-divider"></div>
             <a class="nav-item nav-link ml-lg-auto" routerLink="/profile" routerLinkActive="active" (click)="mobile?navButton.click():''">
                 <i class="fa fa-user-o" aria-hidden="true"></i> My Profile
+            </a>
+            <a class="nav-item nav-link" (click)="logout()" href="javascript:void(0);">
+                <i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out
             </a>
         </div>
     </div>

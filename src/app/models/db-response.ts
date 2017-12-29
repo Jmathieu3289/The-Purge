@@ -1,4 +1,4 @@
 export class DBResponse {
-    public data: {} = null;
+    public data: any = null;
     public errors: Array<string> = [];
 }

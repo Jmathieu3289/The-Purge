@@ -1,10 +1,16 @@
-<app-spinner [hidden]="!loading" class="mt-5"></app-spinner>
-<form name="mainForm" #mainForm="ngForm" (ngSubmit)="login()" [hidden]="loading">
-    <div class="form-group mb-0">
+<app-spinner [hidden]="!loading" class="mt-5" [size]="400"></app-spinner>
+<form name="mainForm" #mainForm="ngForm" (ngSubmit)="login()" [hidden]="loading" [ngClass]="{'was-validated':submitted}" novalidate>
+    <div class="form-group my-2">
         <input name="fEmail" type="email" class="form-control form-control-lg" [(ngModel)]="email" placeholder="Email Address" required>
+        <div class="invalid-feedback">
+            Please enter your email address.
+        </div>
     </div>
-    <div class="form-group mb-1">
+    <div class="form-group my-2">
         <input name="fPassword" type="password" class="form-control form-control-lg" [(ngModel)]="password" placeholder="Password" required>
+        <div class="invalid-feedback">
+            Please enter your password.
+        </div>
     </div>
     <div class="form-group mb-4">
         <span class="switch">

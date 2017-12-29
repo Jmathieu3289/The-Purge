@@ -6,13 +6,29 @@ body {
 
 .progress-bar {
     background-color: #81D4FA !important;
-    transition: width 2s !important;
+    transition: all 2s !important;
+}
+
+.progress-bar.full {
+    background-color: #66BB6A !important;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #42A5F5 !important;
+    border-color: #42A5F5 !important;
+}
+
+.btn-primary:hover {
+    background-color: #1E88E5 !important;
 }
 
 .btn-success {
     background-color: #66BB6A !important;
     border-color: #66BB6A !important;
-    cursor: pointer;
 }
 
 .btn-success:hover {
@@ -36,6 +52,30 @@ body {
     background-color: #212121 !important;
 }
 
+.text-success-lite {
+    color: #66BB6A !important;
+}
+
 .purge {
     font-family: 'Bungee', cursive;
+}
+
+.progress span {
+    position: absolute;
+    display: flex;
+    min-width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px;
+    font-weight: bold;
+}
+
+.full {
+    color: white !important;
+}
+
+@media only screen and (max-width: 576px) {
+    .progress span {
+        padding-right: 0px;
+    }
 }

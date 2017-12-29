@@ -1,41 +1,66 @@
 
-<form>
-    <div class="mb-0 form-group">
-        <label class="col-form-label mb-0">Category:</label>
-        <select class="form-control form-control-lg">
-            <option>Books</option>
-            <option>Clothes</option>
-            <option>Miscellaneous</option>
-            <option>Pounds</option>
-        </select>
-    </div>
-    <div class="mb-0 form-group">
-        <label class="col-form-label">Amount:</label>
-        <input type="number" class="form-control form-control-lg">
-    </div>
-</form>
-<!--<div class="row">
-    <div class="col-12">
-        Progress
-        <div class="progress" style="height: 60px;">
-            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%;">1/10</div>
+<div class="container">
+    <form name="mainForm" #mainForm="ngForm" (ngSubmit)="purge()" [hidden]="loading" [ngClass]="{'was-validated':submitted}" novalidate>
+        <div class="form-row">
+            <div class="col-xs-12 col-sm-4">
+                <label class="col-form-label">Amount:</label>
+                <select name="fAmount" class="form-control form-control-lg" [(ngModel)]="amount" required>
+                    <option *ngFor="let number of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" [ngValue]="number">{{number}}</option>
+                </select>
+            </div>
+            <div class="col-xs-12 col-sm-8">
+                <label class="col-form-label mb-0">Category:</label>
+                <select name="fProgress" class="form-control form-control-lg" [(ngModel)]="selectedProgress" required>
+                    <option *ngFor="let p of progressList" [ngValue]="p">{{p.category}}</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <div *ngIf="selectedProgress!=null" class="row justify-content-end">
+        <div class="col-auto">
+            <button class="btn btn-link mt-2" disabled>Add Details</button>
         </div>
     </div>
-</div>-->
-<!--<div class="row">
-    <div class="col-6 text-center">
-        <h5>Old Balance</h5>
-        <h1 class="text-secondary">3</h1>
+    <hr>
+    <div *ngIf="selectedProgress!=null" class="row justify-content-center">
+        <div class="col-11">
+            <label>Progress:</label>
+            <div class="progress" style="height: 30px;">
+                <div class="progress-bar" role="progressbar" [style.width.%]="getCurrentProgressPercent()">{{selectedProgress.current_count}}</div>
+                <div class="progress-bar full" role="progressbar" [style.width.%]="getNewProgressPercent()">{{amount}}</div>
+            </div>
+        </div>
     </div>
-    <div class="col-6 text-center">
-        <h5>New Balance</h5>
-        <h1 class="text-success">4</h1>
+    <div *ngIf="selectedProgress!=null" class="row mt-2">
+        <div class="col-6 text-center">
+            <h5>Old Balance</h5>
+            <h1 class="text-secondary">{{selectedProgress.credits}}</h1>
+        </div>
+        <div class="col-6 text-center">
+            <h5>New Balance</h5>
+            <h1 class="text-success-lite">{{newBalance()}}</h1>
+        </div>
     </div>
-</div>-->
-<div class="border bg-dark fixed-bottom d-sm-block d-md-none">
+    <hr *ngIf="selectedProgress!=null" class="d-none d-md-block">
+    <div class="d-none d-md-block mt-2">
+        <div class="form-row justify-content-end">
+            <div class="col-2">
+                <button class="btn btn-lg btn-block btn-danger" (click)="purge()" [disabled]="selectedProgress==null||amount<1">
+                    <span>Purge</span>
+                </button>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-lg btn-block btn-primary" routerLink="/dashboard">
+                    <span>Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!submitted" class="border bg-dark fixed-bottom d-sm-block d-md-none">
     <div class="row p-1">
         <div class="col-12">
-            <button class="btn btn-danger btn-block btn-purge text-white p-2">
+            <button class="btn btn-danger btn-block btn-purge text-white p-2" (click)="purge()" [disabled]="selectedProgress==null||amount<1">
                 <h2>
                     <span>Purge</span>
                 </h2>
