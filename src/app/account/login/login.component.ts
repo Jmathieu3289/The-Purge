@@ -34,16 +34,21 @@ export class LoginComponent implements OnInit {
 
     public checkAuthentication(logAttempt: boolean): void {
         this._authService.authenticate().subscribe(authenticated => {
-            this.loading = false;
             if (authenticated) {
                 this.router.navigate(['./dashboard']);
             } else {
+                this.loading = false;
                 if (logAttempt) {
-                    this.hasErrors = true;
-                    this.password = null; 
+                    this.resetForm();
                 }
             }
         });
+    }
+
+    private resetForm(): void {
+        this.hasErrors = true;
+        this.password = null;
+        this.submitted = false;
     }
 
     public login(): void {

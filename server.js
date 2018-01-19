@@ -3,9 +3,9 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const http = require('http');
-const session = require('express-session');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 require('dotenv').config();
 
 // get api routes

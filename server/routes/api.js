@@ -105,8 +105,24 @@ router.post('/purge', (req, res) => {
     Progress
         .query()
         .findOne('id', '=', req.body.progress_id)
-        .then(progress => {
-            res.status(200).send(response);
+        .then(async progress => {
+            if (progress != null) {
+
+                var newCredits = progress.credits + Math.floor((progress.current_count + req.body.amount) / progress.max_count);
+                var newCurrentCount = (progress.current_count + req.body.amount) % progress.max_count;
+
+                const progressID = await Progress
+                    .query()
+                    .patchAndFetchById(progress.id, { current_count: newCurrentCount, credits: newCredits });
+                
+                response.data = progressID;
+                
+                res.status(200).send(response);
+                
+            } else {
+                response.errors.push('progress id not found');
+                res.status(200).send(response);
+            }
         })
         .catch(err => {
             response.errors.push(err);
