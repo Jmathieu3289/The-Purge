@@ -16,6 +16,7 @@ import { SpinnerComponent } from './shared/components/spinner/spinner.component'
 import { NavbarComponent } from './main/components/navbar/navbar.component';
 import { PurgeComponent } from './main/components/purge/purge.component';
 import { ProgressService } from './services/progress.service';
+import { SpendComponent } from './main/components/spend/spend.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ProgressService } from './services/progress.service';
     DashboardComponent,
     SpinnerComponent,
     NavbarComponent,
-    PurgeComponent
+    PurgeComponent,
+    SpendComponent
   ],
   imports: [
     BrowserModule,

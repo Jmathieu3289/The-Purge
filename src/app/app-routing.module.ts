@@ -4,6 +4,7 @@ import { LoginScreenComponent } from './account/login-screen/login-screen.compon
 import { DashboardComponent } from './main/components/dashboard/dashboard.component';
 import { AuthGuard } from './auth.guard';
 import { PurgeComponent } from './main/components/purge/purge.component';
+import { SpendComponent } from './main/components/spend/spend.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -17,6 +18,13 @@ const routes: Routes = [
     {
         path: 'purge',
         component: PurgeComponent,
+        canActivate: [
+            AuthGuard
+        ]
+    },
+    {
+        path: 'spend',
+        component: SpendComponent,
         canActivate: [
             AuthGuard
         ]
