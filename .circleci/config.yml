@@ -16,15 +16,27 @@ jobs:
           paths:
             - ./node_modules
       - run:
-          name: Testing
-          command: npm run test
-      - run:
           name: Bulding
           command: npm run build
       - save_cache:
           key: angular-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - public
+  deploy:
+    working_directory: ~/purge
+    docker:
+      - image: circleci/node:8.9.3-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+        name: Install aws cli
+        command:
+          sudo apt-get -y -qq install awscli
+      - run:
+        name: Deploy to CodeDeploy
+        command: aws 
 
 workflows:
   version: 2

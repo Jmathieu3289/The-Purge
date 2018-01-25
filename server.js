@@ -35,8 +35,6 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
-const Users = require('./server/routes/models/users');
-
 /**
  * get port from environment and store in Express.
  */
