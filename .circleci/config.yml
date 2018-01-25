@@ -28,17 +28,11 @@ jobs:
           key: angular-cache-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - public
-  deploy:
-    working_directory: /tmp
-    docker: 
-      -image: circleci/node:8.9.3-browsers
-    steps:
 
 workflows:
   version: 2
   build_and_deploy:
     jobs:
       - build
-      - deploy
   
   
