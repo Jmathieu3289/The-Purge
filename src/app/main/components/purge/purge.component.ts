@@ -29,7 +29,9 @@ export class PurgeComponent implements OnInit {
     private getCategories(): void {
         this._progressService.getProgress().subscribe(r => {
             if (r.errors.length == 0) {
-                this.progressList = r.data.sort((a: Progress, b: Progress) => { return a.category < b.category ? -1 : a.category > b.category ? 1 : 0; }) as Array<Progress>;
+                this.progressList = r.data.sort((a: Progress, b: Progress) => {
+                    return a.category < b.category ? -1 : a.category > b.category ? 1 : 0;
+                }) as Array<Progress>;
             }
         });
     }
@@ -39,9 +41,9 @@ export class PurgeComponent implements OnInit {
         console.log('Purging');
         this._progressService.purge(this.selectedProgress.id, this.amount).subscribe(r => {
             let t: string = this.newBalance() > this.selectedProgress.credits ?
-                "You earned " + (this.newBalance() - this.selectedProgress.credits) + " credit" +
-                    ((this.newBalance() - this.selectedProgress.credits) == 1 ? "" : "s") +
-                    "! Don't you feel better?" : "Keep it up! You're getting there!";
+                'You earned ' + (this.newBalance() - this.selectedProgress.credits) + ' credit' +
+                    ((this.newBalance() - this.selectedProgress.credits) == 1 ? '' : 's') +
+                    '! Don\'t you feel better?' : 'Keep it up! You\'re getting there!';
             if (r.errors.length == 0) {
                 swal({
                     title: 'Great work!',
