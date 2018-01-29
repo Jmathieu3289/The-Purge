@@ -1,0 +1,10 @@
+branch-defaults:
+  master:
+    environment: ThePurge-env
+global:
+  application_name: The Purge
+  default_ec2_keyname: the-purge
+  default_platform: 64bit Amazon Linux 2017.09 v4.4.4 running Node.js
+  default_region: us-east-2b
+  profile: eb-cli
+  sc: git

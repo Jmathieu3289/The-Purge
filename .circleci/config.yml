@@ -33,10 +33,10 @@ jobs:
       - run:
         name: Install aws cli
         command:
-          sudo apt-get -y -qq install awscli
+          sudo pip install awsebcli
       - run:
-        name: Deploy to CodeDeploy
-        command: aws 
+        name: Deploy to Elasticbeanstalk
+        command: eb deploy 
 
 workflows:
   version: 2
