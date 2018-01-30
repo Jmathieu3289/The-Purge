@@ -34,8 +34,13 @@ jobs:
           name: Install aws cli
           command: sudo pip install awsebcli
       - run:
-          name: Deploy to Elasticbeanstalk
-          command: eb deploy --profile default
+          name: Setup AWS credentials
+          command: |
+            mkdir ~/.aws && printf "[profile eb-cli]\naws_access_key_id = ${AWS_ACCESS_KEY_ID}\naws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}" > ~/.aws/config
+      - deploy:
+          name: Deploy to Elastic Beanstalk
+          command: |
+            eb deploy
 workflows:
   version: 2
   build_and_deploy:
