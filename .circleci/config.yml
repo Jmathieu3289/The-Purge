@@ -43,7 +43,7 @@ jobs:
       - deploy:
           name: Deploy to Elastic Beanstalk
           command: |
-            eb deploy
+            eb deploy --debug
 workflows:
   version: 2
   build_and_deploy:
