@@ -35,7 +35,7 @@ jobs:
           command: sudo pip install awsebcli
       - run:
           name: Deploy to Elasticbeanstalk
-          command: eb deploy 
+          command: eb deploy --profile default
 workflows:
   version: 2
   build_and_deploy:
