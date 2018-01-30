@@ -1,14 +1,14 @@
-# ThePurge
+# The Purge
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
 
 ## Node server
 
-Run `node server.js` in a seperate terminal window to start the node server. Navigate to `http://localhost:3000`.
+Run `node server.js` in a vs code debug to start the node server. Navigate to `http://localhost:3000`.
 
 ## Development server
 
-Run `npm run serve` for a dev server. Navigate to `http://localhost:4201/`. The app will automatically reload if you change any of the source files.
+Run `npm run serve` for a dev server. Navigate to `http://localhost:4201/`. The app will live reload if you change any of the source files.
 
 ## Code scaffolding
 
@@ -16,7 +16,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Run `ng build` to build the project. The build artifacts will be stored in the `public/` directory. Use the `-prod` flag for a production build.
 
 ## Running unit tests
 

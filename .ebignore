@@ -1,6 +1,12 @@
 # dependencies
 /node_modules
 
+# CircleCI
+.circleci/*
+
+# Git
+.git/*
+
 # IDEs and editors
 /.idea
 .project
@@ -12,10 +18,6 @@
 
 # IDE - VSCode
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 
 # misc
 /.sass-cache
@@ -25,6 +27,13 @@
 npm-debug.log
 testem.log
 /typings
+.editorconfig
+.env
+.gitignore
+.karma.conf.js
+protractor.conf.js
+proxy.conf.json
+tsconfig.jsontslint.json
 
 # e2e
 /e2e/*.js
@@ -33,4 +42,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-.env
