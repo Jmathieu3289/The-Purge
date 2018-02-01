@@ -1,0 +1,44 @@
+# dependencies
+/node_modules
+
+# CircleCI
+.circleci/*
+
+# Git
+.git/*
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+.editorconfig
+.env
+.gitignore
+.karma.conf.js
+protractor.conf.js
+proxy.conf.json
+tsconfig.jsontslint.json
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
