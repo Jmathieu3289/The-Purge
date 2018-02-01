@@ -1,3 +1,70 @@
-<p>
-  spend works!
-</p>
+<div class="container">
+    <form name="mainForm" #mainForm="ngForm" (ngSubmit)="purge()" [hidden]="loading" [ngClass]="{'was-validated':submitted}"
+        novalidate>
+        <div class="form-row">
+            <div class="col-xs-12 col-sm-8">
+                <label class="col-form-label mb-0">Category:</label>
+                <select name="fProgress" class="form-control form-control-lg" [(ngModel)]="selectedProgress" required>
+                    <option *ngFor="let p of progressList" [ngValue]="p">{{p.category}}</option>
+                </select>
+            </div>
+            <div class="col-xs-12 col-sm-4" *ngIf="selectedProgress != null">
+                <label class="col-form-label">Amount:</label>
+                <select name="fAmount" class="form-control form-control-lg" [(ngModel)]="amount" required>
+                    <option *ngFor="let number of [1,2,3,4,5]" [ngValue]="number" [disabled]="selectedProgress.credits-number<0">{{number}}</option>
+                </select>
+            </div>           
+        </div>
+    </form>
+    <div *ngIf="selectedProgress!=null" class="row justify-content-end">
+        <div class="col-auto">
+            <button class="btn btn-link mt-2" disabled>Add Details</button>
+        </div>
+    </div>
+    <hr>
+    <div *ngIf="selectedProgress!=null" class="row mt-2">
+        <div class="col-6 text-center">
+            <h5>Old Balance</h5>
+            <h1 class="text-secondary">{{selectedProgress.credits}}</h1>
+        </div>
+        <div class="col-6 text-center">
+            <h5>New Balance</h5>
+            <h1 [ngClass]="{'text-success-lite': hasCreditsRemaining(), 'text-danger': !hasCreditsRemaining()}">{{newBalance()}}</h1>
+        </div>
+    </div>
+    <hr *ngIf="selectedProgress!=null" class="d-none d-md-block">
+    <div class="d-none d-md-block mt-2">
+        <div class="form-row justify-content-end">
+            <div class="col-2">
+                <button class="btn btn-lg btn-block btn-success" (click)="spend()" [disabled]="selectedProgress==null||amount<1">
+                    <span>Spend Credits</span>
+                </button>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-lg btn-block btn-primary" routerLink="/dashboard">
+                    <span>Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!submitted" class="border bg-dark fixed-bottom d-sm-block d-md-none">
+    <div class="row p-1">
+        <div class="col-12">
+            <button class="btn btn-success btn-block text-white p-2" (click)="spend()" [disabled]="selectedProgress==null||amount<1">
+                <h2>
+                    <span>Spend Credits</span>
+                </h2>
+            </button>
+        </div>
+    </div>
+    <div class="row px-1 py-0 pb-1">
+        <div class="col-12">
+            <button class="btn btn-primary btn-block btn-purge p-2" routerLink="/dashboard">
+                <h2>
+                    <span>Cancel</span>
+                </h2>
+            </button>
+        </div>
+    </div>
+</div>
