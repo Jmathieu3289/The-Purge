@@ -5,7 +5,9 @@
             <div class="col-xs-12 col-sm-8">
                 <label class="col-form-label mb-0">Category:</label>
                 <select name="fProgress" class="form-control form-control-lg" [(ngModel)]="selectedProgress" required>
-                    <option *ngFor="let p of progressList" [ngValue]="p">{{p.category}}</option>
+                    <ng-container *ngFor="let p of progressList">
+                        <option [ngValue]="p" *ngIf="p.credits>0">{{p.category}}</option>
+                    </ng-container>
                 </select>
             </div>
             <div class="col-xs-12 col-sm-4" *ngIf="selectedProgress != null">

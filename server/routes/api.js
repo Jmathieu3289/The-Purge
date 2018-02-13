@@ -132,6 +132,60 @@ router.post('/purge', (req, res) => {
 
 });
 
+router.post('/spend', (req, res) => {
+
+    var response = {
+        data: null,
+        errors: []
+    };
+
+    //Must be logged in to spend
+    if (req.session.user == undefined) {
+        response.errors.push('Not authorized');
+
+    }
+
+    if (req.body.progress_id == null) {
+        response.errors.push('progress_id required');
+    }
+
+    if (req.body.amount == null) {
+        response.errors.push('amount required');
+    }
+
+    if (response.errors.length > 0) {
+        res.status(200).send(response);
+    }
+
+    //Get the existing progress first
+    Progress
+        .query()
+        .findOne('id', '=', req.body.progress_id)
+        .then(async progress => {
+            if (progress != null) {
+
+                var newCredits = progress.credits - req.body.amount;
+
+                const progressID = await Progress
+                    .query()
+                    .patchAndFetchById(progress.id, { credits: newCredits });
+
+                response.data = progressID;
+
+                res.status(200).send(response);
+
+            } else {
+                response.errors.push('progress id not found');
+                res.status(200).send(response);
+            }
+        })
+        .catch(err => {
+            response.errors.push(err);
+            res.status(200).send(response);
+        });
+
+});
+
 /* -- END PROGRESS -- */
 
 /* -- SESSION MANAGEMENT --*/
