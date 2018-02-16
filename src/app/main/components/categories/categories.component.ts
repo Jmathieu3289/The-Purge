@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProgressService } from '../../../services/progress.service';
 import { Progress } from '../../../models/progress';
+import { NgForm } from '@angular/forms';
 
 declare var swal;
 
@@ -11,8 +12,12 @@ declare var swal;
 })
 export class CategoriesComponent implements OnInit {
 
+    @ViewChild('mainForm') form: NgForm;
+
     public progressList: Array<Progress> = [];
     public selectedProgress: Progress;
+
+    public submitted: boolean = false;
 
     constructor(private _progressService: ProgressService) { }
 
@@ -21,6 +26,7 @@ export class CategoriesComponent implements OnInit {
     }
 
     private getCategories() {
+        this.selectedProgress = null;
         this._progressService.getProgress().subscribe(dbResponse => {
             this.progressList = dbResponse.data;
         });
@@ -39,7 +45,7 @@ export class CategoriesComponent implements OnInit {
                 swal({
                     title: 'All Gone!',
                     type: 'success',
-                    timer: 1000,
+                    timer: 800,
                     showConfirmButton: false,
                 }).then((result) => {
                     this.getCategories();
@@ -50,8 +56,38 @@ export class CategoriesComponent implements OnInit {
         });
     }
 
-    public edit(progress: Progress) {
+    public add(): void {
+        this.selectedProgress = new Progress();
+        this.selectedProgress.max_count = 1;
+    }
+
+    public cancel(): void {
+        this.getCategories();
+    }
+
+    public save(): void {
+
+        this.submitted = true;
+
+        if (this.form.valid) {
+            this.getCategories();
+            swal({
+                title: 'Category Saved!',
+                type: 'success',
+                timer: 800,
+                showConfirmButton: false,
+            }).then((result) => {
+            });
+        }
+        
+    }
+
+    public edit(progress: Progress): void {
         this.selectedProgress = progress;
+    }
+
+    public isFormInvalid(): boolean {
+        return true;
     }
 
 }
