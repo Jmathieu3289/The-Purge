@@ -5,6 +5,7 @@ import { DashboardComponent } from './main/components/dashboard/dashboard.compon
 import { AuthGuard } from './auth.guard';
 import { PurgeComponent } from './main/components/purge/purge.component';
 import { SpendComponent } from './main/components/spend/spend.component';
+import { CategoriesComponent } from './main/components/categories/categories.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -25,6 +26,13 @@ const routes: Routes = [
     {
         path: 'spend',
         component: SpendComponent,
+        canActivate: [
+            AuthGuard
+        ]
+    },
+    {
+        path: 'categories',
+        component: CategoriesComponent,
         canActivate: [
             AuthGuard
         ]

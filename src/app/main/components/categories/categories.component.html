@@ -1,0 +1,21 @@
+<div class="container p-1" *ngIf="selectedProgress == null">
+    <div class="card p-2 m-1" *ngFor="let progress of progressList">
+        <div class="form-row">
+            <div class="col-auto">
+                <i class="fa fa-bars text-secondary"></i>
+            </div>
+            <div class="col">
+                {{progress.category}}
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-block btn-link p-0 mr-3" (click)="edit(progress)"><i class="fa fa-pencil text-primary"></i></button>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-block btn-link p-0 pr-3 mx-3" (click)="delete(progress)"><i class="fa fa-trash text-danger"></i></button>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="container p-1" *ngIf="selectedProgress">
+    
+</div>
