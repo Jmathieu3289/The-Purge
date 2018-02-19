@@ -60,10 +60,9 @@ export class SpendComponent implements OnInit {
                 swal({
                     title: 'Great work!',
                     text: t,
-                    timer: 3000,
+                    timer: 800,
                     type: 'success',
-                    showConfirmButton: true,
-                    confirmButtonText: 'Thanks!',
+                    showConfirmButton: false,
                     allowOutsideClick: false
                 }).then((result) => {
                     this._router.navigateByUrl('/dashboard');

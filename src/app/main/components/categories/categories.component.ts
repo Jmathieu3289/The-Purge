@@ -42,13 +42,17 @@ export class CategoriesComponent implements OnInit {
             cancelButtonText: 'No, keep it'
         }).then((result) => {
             if (result.value) {
-                swal({
-                    title: 'All Gone!',
-                    type: 'success',
-                    timer: 800,
-                    showConfirmButton: false,
-                }).then((result) => {
-                    this.getCategories();
+                this._progressService.delete(progress.id).subscribe(response => {
+                    if (response.data > 0) {
+                        swal({
+                            title: 'All Gone!',
+                            type: 'success',
+                            timer: 800,
+                            showConfirmButton: false,
+                        }).then((result) => {
+                            this.getCategories();
+                        });
+                    }
                 });
             } else {
                 
@@ -70,16 +74,69 @@ export class CategoriesComponent implements OnInit {
         this.submitted = true;
 
         if (this.form.valid) {
-            this.getCategories();
-            swal({
-                title: 'Category Saved!',
-                type: 'success',
-                timer: 800,
-                showConfirmButton: false,
-            }).then((result) => {
-            });
-        }
-        
+
+            if (this.selectedProgress.id == null) {
+                this.saveNewProgress();
+            } else {
+                this.updateProgress();
+            }
+        }       
+    }
+
+    private saveNewProgress(): void {
+        this._progressService.save(this.selectedProgress.category, this.selectedProgress.max_count).subscribe(response => {
+            if (response.errors.length == 0) {
+                swal({
+                    title: 'Category Saved!',
+                    type: 'success',
+                    timer: 800,
+                    showConfirmButton: false,
+                }).then((result) => {
+                    this.submitted = false;
+                    this.getCategories();
+                });
+            } else {
+                swal({
+                    title: 'Error Saving Category!',
+                    type: 'error',
+                    timer: 800,
+                    showConfirmButton: false,
+                }).then((result) => {
+                    this.submitted = false;
+                    this.getCategories();
+                });
+            }
+        });
+    }
+
+    private updateProgress(): void {
+        this.persistUpdate();      
+    }
+
+    private persistUpdate(): void {
+        this._progressService.update(this.selectedProgress.id, this.selectedProgress.category, this.selectedProgress.max_count).subscribe(response => {
+            if (response.errors.length == 0) {
+                swal({
+                    title: 'Category Updated!',
+                    type: 'success',
+                    timer: 800,
+                    showConfirmButton: false,
+                }).then((result) => {
+                    this.submitted = false;
+                    this.getCategories();
+                });
+            } else {
+                swal({
+                    title: 'Error Updating Category!',
+                    type: 'error',
+                    timer: 800,
+                    showConfirmButton: false,
+                }).then((result) => {
+                    this.submitted = false;
+                    this.getCategories();
+                });
+            }
+        });
     }
 
     public edit(progress: Progress): void {
@@ -88,6 +145,19 @@ export class CategoriesComponent implements OnInit {
 
     public isFormInvalid(): boolean {
         return true;
+    }
+
+    public increment(): void {
+        this.selectedProgress.max_count += 1;
+    }
+
+    public decrement(): void {
+        this.selectedProgress.max_count -= 1;
+        this.validateMaxCount();
+    }
+
+    public validateMaxCount(): void {
+        this.selectedProgress.max_count = Math.max(1, this.selectedProgress.max_count);
     }
 
 }

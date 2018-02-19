@@ -62,10 +62,9 @@ export class PurgeComponent implements OnInit {
                 swal({
                     title: 'Great work!',
                     text: t,
-                    timer: 2000,
+                    timer: 800,
                     type: 'success',
                     showConfirmButton: false,
-                    confirmButtonText: 'Thanks!',
                     allowOutsideClick: false
                 }).then((result) => {
                     this._router.navigateByUrl('/dashboard');

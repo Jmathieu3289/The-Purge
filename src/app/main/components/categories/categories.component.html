@@ -30,11 +30,11 @@
                 <label class="col-form-label mb-0">Amount Per Credit:</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <button class="btn btn-lg btn-outline-primary" type="button">-</button>
+                        <button class="btn btn-lg btn-outline-primary" type="button" (click)="decrement()">-</button>
                     </div>
-                    <input [(ngModel)]="selectedProgress.max_count" class="form-control text-center" min="1" name="nMaxCount" readonly required>
+                    <input [(ngModel)]="selectedProgress.max_count" class="form-control text-center" min="1" name="nMaxCount" (change)="validateMaxCount()" readonly required>
                     <div class="input-group-append">
-                        <button class="btn btn-lg btn-outline-primary" type="button">+</button>
+                        <button class="btn btn-lg btn-outline-primary" type="button" (click)="increment()">+</button>
                     </div>
                 </div>
                 <div class="invalid-feedback">Please enter an amount per credit. Must be a number.</div>
