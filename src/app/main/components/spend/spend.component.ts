@@ -53,7 +53,6 @@ export class SpendComponent implements OnInit {
 
     public spend(): void {
         this.submitted = true;
-        console.log('Spending');
         this._progressService.spend(this.selectedProgress.id, this.amount).subscribe(r => {
             let t: string = `Way to go! You've worked hard for this!`
             if (r.errors.length == 0) {
