@@ -20,15 +20,9 @@ export class DashboardComponent implements OnInit {
 
     public getProgress(): void {
         this._progressService.getProgress().subscribe(r => {
-            console.log(r);
             if (r.errors.length == 0) {
                 this.progressList = r.data as Array<Progress>;
             }
         });
     }
-
-    public purge(progress: Progress): void {
-        
-    }
-    
 }

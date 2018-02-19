@@ -17,6 +17,10 @@ import { NavbarComponent } from './main/components/navbar/navbar.component';
 import { PurgeComponent } from './main/components/purge/purge.component';
 import { ProgressService } from './services/progress.service';
 import { SpendComponent } from './main/components/spend/spend.component';
+import { CategoriesComponent } from './main/components/categories/categories.component';
+import { ProgressComponent } from './main/components/progress/progress.component';
+import { ProfileComponent } from './main/components/profile/profile.component';
+import { FriendsComponent } from './main/components/friends/friends.component';
 
 
 @NgModule({
@@ -29,7 +33,11 @@ import { SpendComponent } from './main/components/spend/spend.component';
     SpinnerComponent,
     NavbarComponent,
     PurgeComponent,
-    SpendComponent
+    SpendComponent,
+    CategoriesComponent,
+    ProgressComponent,
+    ProfileComponent,
+    FriendsComponent
   ],
   imports: [
     BrowserModule,

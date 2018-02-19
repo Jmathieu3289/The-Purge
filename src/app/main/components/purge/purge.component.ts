@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProgressService } from '../../../services/progress.service';
 import { Progress } from '../../../models/progress';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare var swal;
 
@@ -20,7 +20,7 @@ export class PurgeComponent implements OnInit {
 
     public amount: number = 1;
 
-    constructor(private _progressService: ProgressService, private _router: Router) { }
+    constructor(private _progressService: ProgressService, private _router: Router, private _route: ActivatedRoute) { }
 
     ngOnInit() {
         this.getCategories();
@@ -32,13 +32,27 @@ export class PurgeComponent implements OnInit {
                 this.progressList = r.data.sort((a: Progress, b: Progress) => {
                     return a.category < b.category ? -1 : a.category > b.category ? 1 : 0;
                 }) as Array<Progress>;
+                this.processRouteParams();
             }
+        });
+    }
+
+    private processRouteParams(): void {
+        this._route.params.subscribe(params => {
+            if (params['progress_id']) {
+                this.selectedProgress = this.findProgressByID(params['progress_id']);
+            }
+        });
+    }
+
+    private findProgressByID(id: number): Progress {
+        return this.progressList.find((progress) => {
+            return progress.id == id;
         });
     }
   
     public purge(): void {
         this.submitted = true;
-        console.log('Purging');
         this._progressService.purge(this.selectedProgress.id, this.amount).subscribe(r => {
             let t: string = this.newBalance() > this.selectedProgress.credits ?
                 'You earned ' + (this.newBalance() - this.selectedProgress.credits) + ' credit' +
@@ -48,9 +62,9 @@ export class PurgeComponent implements OnInit {
                 swal({
                     title: 'Great work!',
                     text: t,
-                    timer: 3000,
+                    timer: 2000,
                     type: 'success',
-                    showConfirmButton: true,
+                    showConfirmButton: false,
                     confirmButtonText: 'Thanks!',
                     allowOutsideClick: false
                 }).then((result) => {

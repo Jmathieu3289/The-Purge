@@ -15,6 +15,12 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "C:\\Users\\Justin\\Documents\\GitHub\\The-Purge\\server.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Work",
+            "program": "D:\\Git\\the-purge\\server.js"
         }
     ]
 }

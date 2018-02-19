@@ -12,13 +12,13 @@
                 <i *ngIf="i==0" class="fa fa-credit-card"></i>
                 <span *ngIf="i>0">&nbsp;</span>
                 <div style="height: 30px;">
-                    <button class="btn btn-sm btn-block btn-success p-0 pb-1" style="height: 30px;" [disabled]="p.credits==0">{{p.credits}}</button>
+                    <button class="btn btn-sm btn-block btn-success p-0 pb-1" style="height: 30px;" [disabled]="p.credits==0" [routerLink]="['/spend', {progress_id:p.id}]">{{p.credits}}</button>
                 </div>
             </div>
             <div class="d-none d-md-block col-md-1 text-center p-1">
                 <span >&nbsp;</span>
                 <div style="height: 30px;">
-                    <button class="btn btn-sm btn-block btn-danger p-0 pb-1" style="height: 30px;" (click)="purge(p)">Purge</button>
+                    <button class="btn btn-sm btn-block btn-danger p-0 pb-1" style="height: 30px;" [routerLink]="['/purge', {progress_id:p.id}]">Purge</button>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
     </div>
     <div class="row px-1 py-0 pb-1">
         <div class="col-12">
-            <button class="btn btn-success btn-block text-white p-2">
+            <button class="btn btn-success btn-block text-white p-2" routerLink="/spend">
                 <h2>
                     <span>Spend Credits</span>
                 </h2>

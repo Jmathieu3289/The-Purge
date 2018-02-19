@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProgressService } from '../../../services/progress.service';
 import { Progress } from '../../../models/progress';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare var swal;
 
@@ -20,7 +20,7 @@ export class SpendComponent implements OnInit {
 
     public amount: number = 1;
 
-    constructor(private _progressService: ProgressService, private _router: Router) { }
+    constructor(private _progressService: ProgressService, private _router: Router, private _route: ActivatedRoute) { }
 
     ngOnInit() {
         this.getCategories();
@@ -32,7 +32,22 @@ export class SpendComponent implements OnInit {
                 this.progressList = r.data.sort((a: Progress, b: Progress) => {
                     return a.category < b.category ? -1 : a.category > b.category ? 1 : 0;
                 }) as Array<Progress>;
+                this.processRouteParams();
             }
+        });
+    }
+
+    private processRouteParams(): void {
+        this._route.params.subscribe(params => {
+            if (params['progress_id']) {
+                this.selectedProgress = this.findProgressByID(params['progress_id']);
+            }
+        });
+    }
+
+    private findProgressByID(id: number): Progress {
+        return this.progressList.find((progress) => {
+            return progress.id == id;
         });
     }
 

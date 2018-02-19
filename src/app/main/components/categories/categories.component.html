@@ -1,0 +1,91 @@
+<div class="container p-1" *ngIf="selectedProgress == null">
+    <div class="card p-2 m-1" *ngFor="let progress of progressList">
+        <div class="form-row">
+            <div class="col-auto">
+                <i class="fa fa-bars text-secondary"></i>
+            </div>
+            <div class="col">
+                {{progress.category}}
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-block btn-link p-0 mr-3" (click)="edit(progress)"><i class="fa fa-pencil text-primary"></i></button>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-block btn-link p-0 pr-3 mx-3" (click)="delete(progress)"><i class="fa fa-trash text-danger"></i></button>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="container p-1" *ngIf="selectedProgress">
+    <form (ngSubmit)="save()" [ngClass]="{'was-validated':submitted}" #mainForm="ngForm" name="mainForm" novalidate>
+        <div class="form-row">
+            <div class="col-12">
+                <label class="col-form-label mb-0">Category Name:</label>
+                <input class="form-control" name="nCategory" [(ngModel)]="selectedProgress.category" required>
+                <div class="invalid-feedback">Please enter a category name.</div>
+            </div>
+        </div>
+        <div class="form-row justify-content-center">
+            <div class="col-12">
+                <label class="col-form-label mb-0">Amount Per Credit:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-lg btn-outline-primary" type="button">-</button>
+                    </div>
+                    <input [(ngModel)]="selectedProgress.max_count" class="form-control text-center" min="1" name="nMaxCount" readonly required>
+                    <div class="input-group-append">
+                        <button class="btn btn-lg btn-outline-primary" type="button">+</button>
+                    </div>
+                </div>
+                <div class="invalid-feedback">Please enter an amount per credit. Must be a number.</div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container d-none d-md-block">
+    <div class="form-row justify-content-end mt-4">
+        <div class="col-2" *ngIf="selectedProgress != null">
+            <button (click)="cancel()"  class="btn btn-danger btn-block">
+                <span>Cancel</span>
+            </button>
+        </div>
+        <div class="col-2" *ngIf="selectedProgress == null">
+            <button (click)="add()"  class="btn btn-success btn-block">
+                <span>Add Category</span>
+            </button>
+        </div>
+        <div class="col-2" *ngIf="selectedProgress != null">
+            <button (click)="save()"  class="btn btn-success btn-block">
+                <span>Save</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="border bg-dark fixed-bottom d-sm-block d-md-none">
+    <div class="row p-1">
+        <div class="col-12">
+            <button *ngIf="selectedProgress != null" class="btn btn-danger btn-block text-white p-2" (click)="cancel()">
+                <h2>
+                    <span>Cancel</span>
+                </h2>
+            </button>
+            <button *ngIf="selectedProgress == null" class="btn btn-success btn-block text-white p-2" (click)="add()">
+                <h2>
+                    <span>Add Category</span>
+                </h2>
+            </button>
+
+        </div>
+    </div>
+    <div class="row px-1 py-0 pb-1" *ngIf="selectedProgress != null">
+        <div class="col-12">
+            <button *ngIf="selectedProgress != null" class="btn btn-success btn-block text-white p-2" (click)="save()">
+                <h2>
+                    <span>Save</span>
+                </h2>
+            </button>
+        </div>
+    </div>
+</div>
+
