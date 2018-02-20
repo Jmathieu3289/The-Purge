@@ -63,6 +63,7 @@ export class CategoriesComponent implements OnInit {
     public add(): void {
         this.selectedProgress = new Progress();
         this.selectedProgress.max_count = 1;
+        this.selectedProgress.sort_order = this.progressList[this.progressList.length - 1].sort_order + 1;
     }
 
     public cancel(): void {
@@ -84,7 +85,7 @@ export class CategoriesComponent implements OnInit {
     }
 
     private saveNewProgress(): void {
-        this._progressService.save(this.selectedProgress.category, this.selectedProgress.max_count).subscribe(response => {
+        this._progressService.save(this.selectedProgress.category, this.selectedProgress.max_count, this.selectedProgress.sort_order).subscribe(response => {
             if (response.errors.length == 0) {
                 swal({
                     title: 'Category Saved!',
@@ -114,7 +115,7 @@ export class CategoriesComponent implements OnInit {
     }
 
     private persistUpdate(): void {
-        this._progressService.update(this.selectedProgress.id, this.selectedProgress.category, this.selectedProgress.max_count).subscribe(response => {
+        this._progressService.update(this.selectedProgress.id, this.selectedProgress.category, this.selectedProgress.max_count, this.selectedProgress.sort_order).subscribe(response => {
             if (response.errors.length == 0) {
                 swal({
                     title: 'Category Updated!',
@@ -158,6 +159,15 @@ export class CategoriesComponent implements OnInit {
 
     public validateMaxCount(): void {
         this.selectedProgress.max_count = Math.max(1, this.selectedProgress.max_count);
+    }
+
+    public updateOrder(): void {
+        for (let i = 0; i < this.progressList.length; i++){
+            let progress = this.progressList[i];
+            progress.sort_order = i;
+            this._progressService.update(progress.id, progress.category, progress.max_count, progress.sort_order).subscribe(response => {
+            });
+        }
     }
 
 }

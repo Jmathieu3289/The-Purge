@@ -4,4 +4,5 @@ export class Progress {
     public current_count: number;
     public max_count: number;
     public credits: number;
+    public sort_order: number;
 }

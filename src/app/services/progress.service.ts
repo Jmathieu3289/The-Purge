@@ -27,10 +27,11 @@ export class ProgressService {
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    public save(category: string, max_count: number): Observable<DBResponse> {
+    public save(category: string, max_count: number, sort_order: number): Observable<DBResponse> {
         return this.http.post(this.POST_PROGRESS_URL, {
             category: category,
-            max_count: max_count
+            max_count: max_count,
+            sort_order: sort_order
         })
             .map((res: Response) => {
                 let r: DBResponse = res.json();
@@ -39,11 +40,12 @@ export class ProgressService {
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    public update(id: number, category: string, max_count: number): Observable<DBResponse> {
+    public update(id: number, category: string, max_count: number, sort_order: number): Observable<DBResponse> {
         return this.http.patch(this.POST_PROGRESS_URL + '/' + id, {
             id: id,
             category: category,
-            max_count: max_count
+            max_count: max_count,
+            sort_order: sort_order
         })
             .map((res: Response) => {
                 let r: DBResponse = res.json();

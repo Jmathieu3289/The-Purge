@@ -69,7 +69,11 @@ router.get('/progress', (req, res) => {
         res.status(200).send(response);
     }
 
-    Progress.query().where('user_id', '=', req.session.user.id).then(progress => {
+    Progress
+        .query()
+        .where('user_id', '=', req.session.user.id)
+        .orderBy('sort_order')
+        .then(progress => {
         response.data = progress;
         res.status(200).send(response);
     });
@@ -170,7 +174,8 @@ router.patch('/progress/:id', (req, res) => {
                         category: req.body.category,
                         max_count: req.body.max_count,
                         current_count: currentCount,
-                        credits: credits
+                        credits: credits,
+                        sort_order: req.body.sort_order
                     }).then(async updated_progress => {
                         response.data = updated_progress;
                         res.status(200).send(response);

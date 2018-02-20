@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { DndModule } from 'ng2-dnd';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './account/login/login.component';
@@ -44,7 +45,8 @@ import { FriendsComponent } from './main/components/friends/friends.component';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    HttpModule
+    HttpModule,
+    DndModule.forRoot()
   ],
   providers: [AuthService, AuthGuard, ProgressService],
   bootstrap: [AppComponent]
