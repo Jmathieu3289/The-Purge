@@ -20,6 +20,9 @@ export class PurgeComponent implements OnInit {
 
     public amount: number = 1;
 
+    public addingDetails: boolean = false;
+    public notes: string;
+
     constructor(private _progressService: ProgressService, private _router: Router, private _route: ActivatedRoute) { }
 
     ngOnInit() {
@@ -53,7 +56,7 @@ export class PurgeComponent implements OnInit {
   
     public purge(): void {
         this.submitted = true;
-        this._progressService.purge(this.selectedProgress.id, this.amount).subscribe(r => {
+        this._progressService.purge(this.selectedProgress.id, this.amount, this.notes).subscribe(r => {
             let t: string = this.newBalance() > this.selectedProgress.credits ?
                 'You earned ' + (this.newBalance() - this.selectedProgress.credits) + ' credit' +
                     ((this.newBalance() - this.selectedProgress.credits) == 1 ? '' : 's') +
@@ -84,5 +87,9 @@ export class PurgeComponent implements OnInit {
     public getCurrentProgressPercent(): number {
         return ((this.selectedProgress.current_count) / this.selectedProgress.max_count) * 100;
     } 
+
+    public addDetails(): void {
+        this.addingDetails = true;
+    }
 
 }

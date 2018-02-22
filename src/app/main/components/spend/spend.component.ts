@@ -20,6 +20,9 @@ export class SpendComponent implements OnInit {
 
     public amount: number = 1;
 
+    public addingDetails: boolean = false;
+    public notes: string;
+
     constructor(private _progressService: ProgressService, private _router: Router, private _route: ActivatedRoute) { }
 
     ngOnInit() {
@@ -53,7 +56,7 @@ export class SpendComponent implements OnInit {
 
     public spend(): void {
         this.submitted = true;
-        this._progressService.spend(this.selectedProgress.id, this.amount).subscribe(r => {
+        this._progressService.spend(this.selectedProgress.id, this.amount, this.notes).subscribe(r => {
             let t: string = `Way to go! You've worked hard for this!`
             if (r.errors.length == 0) {
                 swal({
@@ -76,6 +79,10 @@ export class SpendComponent implements OnInit {
 
     public hasCreditsRemaining(): boolean {
         return this.selectedProgress.credits - this.amount > 0;
+    }
+
+    public addDetails(): void {
+        this.addingDetails = true;
     }
 
 }

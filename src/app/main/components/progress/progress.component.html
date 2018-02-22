@@ -1,1 +1,3 @@
-Graphs and stuff like that will go here!
+<ul class="m-2">
+    <li *ngFor="let progressHistory of progressHistoryList">{{progressHistory.history_date | date : 'shortDate'}} - <b>{{progressHistory.history_type == 1 ? 'purged' : 'got'}}</b> {{progressHistory.notes}}</li>
+</ul>

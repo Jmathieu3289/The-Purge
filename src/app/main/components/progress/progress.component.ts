@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ProgressService } from '../../../services/progress.service';
+import { Progress } from '../../../models/progress';
+import { ProgressHistory } from '../../../models/progress_history';
+import { DBResponse } from '../../../models/db-response';
 
 @Component({
   selector: 'app-progress',
@@ -7,9 +11,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProgressComponent implements OnInit {
 
-  constructor() { }
+    public progressList: Array<Progress> = [];
+    public progressHistoryList: Array<ProgressHistory> = [];
 
-  ngOnInit() {
-  }
+    constructor(private _progressService: ProgressService) { }
+
+    ngOnInit() {
+        this.getProgress();
+        this.getProgressHistory();
+    }
+
+    public getProgress(): void {
+        this._progressService.getProgress().subscribe(dbResponse => {
+            this.progressList = dbResponse.data;
+        });
+    }
+
+    public getProgressHistory(): void {
+        this._progressService.getProgressHistory(1).subscribe(dbResponse => {
+            this.progressHistoryList = dbResponse.data;
+        });
+    }
 
 }

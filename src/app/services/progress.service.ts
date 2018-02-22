@@ -14,6 +14,8 @@ export class ProgressService {
     private readonly POST_PURGE_URL = '/api/purge';
     private readonly POST_SPEND_URL = '/api/spend';
 
+    private readonly GET_PROGRESS_HISTORY_URL = '/api/progress_history';
+
     constructor(private http: Http) {
     }
 
@@ -64,10 +66,11 @@ export class ProgressService {
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    public spend(progress_id: number, amount: number): Observable<DBResponse> {
+    public spend(progress_id: number, amount: number, notes: string): Observable<DBResponse> {
         return this.http.post(this.POST_SPEND_URL, {
             progress_id: progress_id,
-            amount: amount
+            amount: amount,
+            notes: notes
         }).map((res: Response) => {
             let r: DBResponse = res.json();
             return r;
@@ -75,14 +78,25 @@ export class ProgressService {
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    public purge(progress_id: number, amount: number): Observable<DBResponse> {
+    public purge(progress_id: number, amount: number, notes: string): Observable<DBResponse> {
         return this.http.post(this.POST_PURGE_URL, {
             progress_id: progress_id,
-            amount: amount
+            amount: amount,
+            notes: notes
         }).map((res: Response) => {
             let r: DBResponse = res.json();
             return r;
         })
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    public getProgressHistory(historyType: number): Observable<DBResponse> {
+        return this.http.get(this.GET_PROGRESS_HISTORY_URL, {
+        })
+            .map((res: Response) => {
+                let r: DBResponse = res.json();
+                return r;
+            })
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 

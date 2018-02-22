@@ -18,7 +18,13 @@
     </form>
     <div *ngIf="selectedProgress!=null" class="row justify-content-end">
         <div class="col-auto">
-            <button class="btn btn-link mt-2" disabled>Add Details</button>
+            <button class="btn btn-link mt-2" (click)="addDetails()">Add Details</button>
+        </div>
+    </div>
+    <div *ngIf="addingDetails" class="row mb-1">
+        <div class="col">
+            <label>What are you purging?</label>
+            <textarea class="form-control" [(ngModel)]="notes" maxlength="500"></textarea>
         </div>
     </div>
     <hr>

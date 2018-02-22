@@ -1,6 +1,7 @@
 //Imports
 const Users = require('./models/users');
 const Progress = require('./models/progress');
+const ProgressHistory = require('./models/progress_history');
 const Categories = require('./models/categories');
 const Response = require('./models/response');
 
@@ -248,6 +249,19 @@ router.post('/purge', (req, res) => {
         .then(async progress => {
             if (progress != null) {
 
+                //Insert progress history entry
+                ProgressHistory
+                    .query()
+                    .insert({
+                        progress_id: progress.id,
+                        amount: req.body.amount,
+                        notes: req.body.notes,
+                        history_type: 1,
+                        history_date: new Date()
+                    }).then(async new_progress_history => {
+                    });
+
+                //Update progress
                 var newCredits = progress.credits + Math.floor((progress.current_count + req.body.amount) / progress.max_count);
                 var newCurrentCount = (progress.current_count + req.body.amount) % progress.max_count;
 
@@ -297,6 +311,19 @@ router.post('/spend', (req, res) => {
         .then(async progress => {
             if (progress != null) {
 
+                //Insert progress history entry
+                ProgressHistory
+                    .query()
+                    .insert({
+                        progress_id: progress.id,
+                        amount: req.body.amount,
+                        notes: req.body.notes,
+                        history_type: 2,
+                        history_date: new Date()
+                    }).then(async new_progress_history => {
+                    });
+
+                //Update progress
                 var newCredits = progress.credits - req.body.amount;
 
                 const progressID = await Progress
@@ -316,6 +343,28 @@ router.post('/spend', (req, res) => {
             response.errors.push(err);
             res.status(200).send(response);
         });
+
+});
+
+router.get('/progress_history', (req, res) => {
+
+    var response = new Response();
+
+    requireAuthentication(req, response);
+
+    if (response.errors.length == 0) {
+        ProgressHistory
+            .query()
+            .join('progress as p', 'progress_history.progress_id', 'p.id')
+            .join('users as u', 'p.user_id', 'u.id')
+            .where('u.id', '=', req.session.user.id)
+            .then(progressHistory => {
+                response.data = progressHistory;
+                res.status(200).send(response);
+            });
+    } else {
+        res.status(200).send(response);
+    }
 
 });
 

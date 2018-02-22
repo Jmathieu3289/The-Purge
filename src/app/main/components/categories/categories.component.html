@@ -1,5 +1,5 @@
 <div class="container p-1" *ngIf="selectedProgress == null" dnd-sortable-container [sortableData]="progressList">
-    <div class="card p-2 m-1" *ngFor="let progress of progressList; let i = index;" dnd-sortable [sortableIndex]="i" (onDragEnd)="updateOrder()">
+    <div class="card p-2 m-1 mobile-drag" *ngFor="let progress of progressList; let i = index;" dnd-sortable [sortableIndex]="i" (onDragEnd)="updateOrder()">
         <div class="form-row">
             <div class="col-auto">
                 <i class="fa fa-bars text-secondary" dnd-sortable-handle></i>
@@ -45,17 +45,17 @@
 <div class="container d-none d-md-block">
     <div class="form-row justify-content-end mt-4">
         <div class="col-2" *ngIf="selectedProgress != null">
-            <button (click)="cancel()"  class="btn btn-danger btn-block">
+            <button (click)="cancel()"  class="btn btn-lg btn-danger btn-block">
                 <span>Cancel</span>
             </button>
         </div>
         <div class="col-2" *ngIf="selectedProgress == null">
-            <button (click)="add()"  class="btn btn-success btn-block">
+            <button (click)="add()"  class="btn btn-lg btn-success btn-block">
                 <span>Add Category</span>
             </button>
         </div>
         <div class="col-2" *ngIf="selectedProgress != null">
-            <button (click)="save()"  class="btn btn-success btn-block">
+            <button (click)="save()"  class="btn btn-lg btn-success btn-block">
                 <span>Save</span>
             </button>
         </div>
