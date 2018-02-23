@@ -22,6 +22,8 @@ import { CategoriesComponent } from './main/components/categories/categories.com
 import { ProgressComponent } from './main/components/progress/progress.component';
 import { ProfileComponent } from './main/components/profile/profile.component';
 import { FriendsComponent } from './main/components/friends/friends.component';
+import { LoadingListComponent } from './shared/components/loading-list/loading-list.component';
+import { FriendService } from './services/friend.service';
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import { FriendsComponent } from './main/components/friends/friends.component';
     CategoriesComponent,
     ProgressComponent,
     ProfileComponent,
-    FriendsComponent
+    FriendsComponent,
+    LoadingListComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,7 @@ import { FriendsComponent } from './main/components/friends/friends.component';
     HttpModule,
     DndModule.forRoot()
   ],
-  providers: [AuthService, AuthGuard, ProgressService],
+  providers: [AuthService, AuthGuard, ProgressService, FriendService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

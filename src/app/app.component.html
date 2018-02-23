@@ -1,7 +1,15 @@
-<div class="container-fluid p-0">
-    <div class="d-flex flex-column">
-        <app-navbar></app-navbar>
-        <router-outlet></router-outlet>
-    </div>
-        
+<div class="h-100 container-fluid p-0">
+    <div class="h-100 d-flex flex-column">
+        <ng-container *ngIf="loading">
+            <div class="d-flex flex-column h-100 justify-content-center">
+                <div>
+                    <app-spinner></app-spinner>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!loading">
+            <app-navbar></app-navbar>
+            <router-outlet></router-outlet>
+        </ng-container>
+    </div>     
 </div>

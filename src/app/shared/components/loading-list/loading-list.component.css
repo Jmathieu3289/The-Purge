@@ -1,0 +1,10 @@
+.loading {
+    color: #e9ecef;
+    background-color: #e9ecef;
+}
+
+.circle {
+	border-radius: 50%;
+	width: 30px;
+	height: 30px; 
+}

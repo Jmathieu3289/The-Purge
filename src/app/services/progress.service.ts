@@ -90,7 +90,7 @@ export class ProgressService {
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    public getProgressHistory(historyType: number): Observable<DBResponse> {
+    public getProgressHistory(): Observable<DBResponse> {
         return this.http.get(this.GET_PROGRESS_HISTORY_URL, {
         })
             .map((res: Response) => {

@@ -48,11 +48,48 @@ router.get('/categories', (req, res) => {
 
     requireAuthentication(req, response);
 
-    if (response.errors == null) {
+    if (response.errors.length == 0) {
         Categories.query().then(categories => {
             response.data = categories;
             res.status(200).send(response);
         });
+    }
+
+});
+
+router.get('/user', (req, res) => {
+
+    var response = new Response();
+
+    requireAuthentication(req, response);
+
+    if (response.errors.length == 0) {
+        response.data = req.session.user;
+        res.status(200).send(response);
+    }
+
+});
+
+router.get('/friends', async (req, res) => {
+
+    var response = new Response();
+
+    requireAuthentication(req, response);
+
+    if (response.errors.length == 0) {
+
+        const user = await Users.query().findById(req.session.user.id);
+
+        const friends = await user
+            .$relatedQuery('friends');
+
+        response.data = friends.map((friend) => {
+            delete friend.password;
+            return friend;
+        })
+
+        res.status(200).send(response);
+
     }
 
 });
@@ -75,9 +112,9 @@ router.get('/progress', (req, res) => {
         .where('user_id', '=', req.session.user.id)
         .orderBy('sort_order')
         .then(progress => {
-        response.data = progress;
-        res.status(200).send(response);
-    });
+            response.data = progress;
+            res.status(200).send(response);
+        });
 
 });
 
@@ -212,7 +249,7 @@ router.delete('/progress/:id', (req, res) => {
     Progress
         .query()
         .delete()
-        .where('id', '=', req.params.id)  
+        .where('id', '=', req.params.id)
         .then(async numDeleted => {
             response.data = numDeleted;
             res.status(200).send(response);
@@ -268,11 +305,11 @@ router.post('/purge', (req, res) => {
                 const progressID = await Progress
                     .query()
                     .patchAndFetchById(progress.id, { current_count: newCurrentCount, credits: newCredits });
-                
+
                 response.data = progressID;
-                
+
                 res.status(200).send(response);
-                
+
             } else {
                 response.errors.push('progress id not found');
                 res.status(200).send(response);
@@ -397,7 +434,7 @@ router.post('/logout', (req, res) => {
         }
         res.status(200).send(response);
     });
-    
+
 });
 
 router.post('/login', (req, res) => {
@@ -421,10 +458,7 @@ router.post('/login', (req, res) => {
                         if (r) {
                             delete u.password; //Don't send the user their own encrypted password.
                             response.data = u;
-
-                            //Set session data
                             req.session.user = u;
-
                         } else {
                             response.errors.push('Invalid email or password.');
                         }
@@ -436,6 +470,8 @@ router.post('/login', (req, res) => {
 });
 
 /* -- END SESSION MANAGEMENT --*/
+
+
 
 // ---------------------------------------------------------------------------
 

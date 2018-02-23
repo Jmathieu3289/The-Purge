@@ -12,6 +12,8 @@ export class DashboardComponent implements OnInit {
 
     public progressList: Array<Progress> = [];
 
+    public loading: boolean = false;
+
     constructor(private _progressService: ProgressService) { }
 
     ngOnInit() {
@@ -19,10 +21,12 @@ export class DashboardComponent implements OnInit {
     }
 
     public getProgress(): void {
+        this.loading = true;
         this._progressService.getProgress().subscribe(r => {
             if (r.errors.length == 0) {
                 this.progressList = r.data as Array<Progress>;
             }
+            this.loading = false;
         });
     }
 }

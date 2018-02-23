@@ -1,3 +1,25 @@
-<ul class="m-2">
-    <li *ngFor="let progressHistory of progressHistoryList">{{progressHistory.history_date | date : 'shortDate'}} - <b>{{progressHistory.history_type == 1 ? 'purged' : 'got'}}</b> {{progressHistory.notes}}</li>
-</ul>
+<div class="container mt-2">
+    <h4>Activity Feed</h4>
+    <ul *ngIf="!loading" class="list-group">
+        <li *ngFor="let progressHistory of progressHistoryList" class="list-group-item p-0">
+            <div class="d-flex flex-row align-items-center">
+                <div class="text-center m-3">
+                    <i *ngIf="progressHistory.history_type == 1" aria-hidden="true" class="fa fa-trash-o fa-fw"></i>
+                    <i *ngIf="progressHistory.history_type == 2" aria-hidden="true" class="fa fa-credit-card fa-fw"></i>
+                </div>
+                <div class="m-2">
+                    <div>
+                        <b>{{progressHistory.history_type == 1 ? 'purged' : 'got'}}</b> {{progressHistory.notes}}
+                    </div>
+                    <div class="font-weight-light text-muted">
+                        <small>{{progressHistory.history_date | date : 'short'}}</small>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <app-loading-list *ngIf="loading"></app-loading-list>
+    <!-- <div class="text-right">
+        <button class="btn btn-link text-muted">show more</button>
+    </div> -->
+</div>

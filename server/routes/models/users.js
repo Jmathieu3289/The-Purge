@@ -8,6 +8,7 @@ class Users extends Model {
     }
 
     static get relationMappings() {
+        
         const Progress = require('./progress');
 
         return {
@@ -15,8 +16,21 @@ class Users extends Model {
                 relation: Model.HasManyRelation,
                 modelClass: Progress,
                 join: {
-                    from: 'user.id',
+                    from: 'users.id',
                     to: 'progress.user_id'
+                }
+            },
+
+            friends: {
+                relation: Model.ManyToManyRelation,
+                modelClass: Users,
+                join: {
+                    from: 'users.id',
+                    through: {
+                        from: 'friends.requester_user_id',
+                        to: 'friends.accepter_user_id'
+                    },
+                    to: 'users.id'
                 }
             }
         }

@@ -1,3 +1,86 @@
-<p>
-  profile works!
-</p>
+<div *ngIf="!addingFriends" class="container p-0">
+    <form>
+        <div class="justify-content-center p-4 bg-danger text-center">
+            <div>
+                <i class="fa fa-user-circle fa-4x text-light"></i>
+            </div>
+            <h3 class="text-light">{{user.first_name}} {{user.last_name}}</h3>
+            <h5 *ngIf="user.join_date != null" class="text-light font-weight-light">Member since: {{user.join_date | date : 'shortDate'}}</h5>
+        </div>
+        <div class="p-2">
+            <h5 class="font-weight-light text-muted">about</h5>
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Email</label>
+                <div class="col-8">
+                    <span>{{user.email}}</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-4 col-form-label">First Name</label>
+                <div class="col-8">
+                    <input [(ngModel)]="user.first_name" class="form-control" name="nFirstName" type="text">
+                </div>  
+            </div>
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Last Name</label>
+                <div class="col-8">
+                   <input [(ngModel)]="user.last_name" class="form-control" name="nLastName" type="text"> 
+                </div>
+            </div>
+        </div>
+    </form>
+    <hr class="my-1">
+    <div class="p-2">
+        <h5 class="font-weight-light text-muted">friends</h5>
+        <div>
+            <div *ngIf="friends.length > 0">
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let friend of friends">
+                        <div class="d-flex flex-row align-items-center">
+                            <div><i class="fa fa-user-circle text-muted mr-2"></i></div>
+                            <div>
+                                <div>{{friend.first_name}} {{friend.last_name}}</div>
+                            </div>
+                            <button class="ml-auto btn btn-link p-1">view</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div *ngIf="friends.length == 0" class="text-center">
+                <i class="fa fa-users fa-4x text-muted"></i>
+                <div class="text-muted">
+                    Looks like you don't have any friends. (Yet!)
+                </div>
+            </div>
+            <div class="p-1 mt-2">
+                <button (click)="addFriends()" class="btn btn-block btn-primary"><i class="fa fa-plus"></i> Add Friends</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="addingFriends" class="container p-0">
+    <div class="p-2">
+        <div>
+            <label>Search</label>
+            <div class="input-group">
+                <input (keyup.enter)="searchEmail()" class="form-control" placeholder="search by email address" type="email">
+                <div class="input-group-append">
+                    <button (click)="searchEmail()" class="btn btn-secondary" type="button"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="searched" class="mt-2 border">
+            <div *ngIf="friends.length > 0" class="border p-3">
+                <div class="d-flex flex-row align-items-center">
+                    <div>
+                        <span class="font-weight-light">Kate Thornborough</span>
+                    </div>
+                    <div class="ml-auto">
+                        <button class="btn btn-sm btn-primary"><i class="fa fa-send"></i> send request</button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="friends.length==0" class="text-center text-muted font-weight-light p-4">No results found...</div>
+        </div>
+    </div>
+</div>

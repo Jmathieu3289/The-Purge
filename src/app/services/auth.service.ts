@@ -11,6 +11,7 @@ export class AuthService {
     private readonly LOGIN_URL = '/api/login';
     private readonly LOGOUT_URL = '/api/logout';
     private readonly SESSION_URL = '/api/session';
+    private readonly USER_URL = '/api/user';
 
     constructor(private http: Http) {
     }
@@ -47,6 +48,16 @@ export class AuthService {
 
     public logout(): Observable<DBResponse> {
         return this.http.post(this.LOGOUT_URL, {
+        })
+        .map((res: Response) => {
+            const r: DBResponse = res.json();
+            return r;
+        })
+        .catch((error: any) => Observable.throw(error || 'Server error'));
+    }
+
+    public getUser(): Observable<DBResponse> {
+        return this.http.get(this.USER_URL, {
         })
         .map((res: Response) => {
             const r: DBResponse = res.json();
