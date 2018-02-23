@@ -16,6 +16,8 @@ export class ProfileComponent implements OnInit {
     public addingFriends: boolean = false;
     public searched: boolean = false;
 
+    public loading: boolean = false;
+
     constructor(private _authService: AuthService,
                 private _friendService: FriendService) { }
 
@@ -32,8 +34,10 @@ export class ProfileComponent implements OnInit {
     }
 
     private getFriends(): void {
+        this.loading = true;
         this._friendService.getFriends().subscribe(response => {
             this.friends = response.data;
+            this.loading = false;
         });
     }
 

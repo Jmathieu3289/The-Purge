@@ -35,7 +35,11 @@ export class ProgressComponent implements OnInit {
         this.loading = true;
         this._progressService.getProgressHistory().subscribe(dbResponse => {
             this.progressHistoryList = dbResponse.data.map((progressHistory) => {
-                progressHistory.notes = this.uncapitalizeFirstLetter(progressHistory.notes);
+                if (progressHistory.notes != null && progressHistory.notes != '') {
+                    progressHistory.notes = this.uncapitalizeFirstLetter(progressHistory.notes);
+                } else {
+                    progressHistory.notes = progressHistory.amount + ' item from ' + this.getCategoryName(progressHistory.progress_id) + '.';
+                }
                 return progressHistory;
             });
             this.loading = false;
@@ -44,6 +48,15 @@ export class ProgressComponent implements OnInit {
     
     private uncapitalizeFirstLetter(string) {
         return string.charAt(0).toLowerCase() + string.slice(1);
+    }
+
+    private getCategoryName(progressID: number): string {
+        
+        let progress = this.progressList.find((progress) => {
+            return progress.id == progressID;
+        });
+
+        return progress ? this.uncapitalizeFirstLetter(progress.category) : 'something';
     }
 
 }

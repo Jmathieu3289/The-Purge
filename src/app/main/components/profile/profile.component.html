@@ -32,7 +32,10 @@
     <hr class="my-1">
     <div class="p-2">
         <h5 class="font-weight-light text-muted">friends</h5>
-        <div>
+        <div *ngIf="loading">
+            <app-spinner></app-spinner>
+        </div>
+        <div *ngIf="!loading">
             <div *ngIf="friends.length > 0">
                 <ul class="list-group">
                     <li class="list-group-item" *ngFor="let friend of friends">
