@@ -383,18 +383,31 @@ router.post('/spend', (req, res) => {
 
 });
 
-router.get('/progress_history', (req, res) => {
+router.get('/progress_history', async (req, res) => {
 
     var response = new Response();
 
     requireAuthentication(req, response);
 
     if (response.errors.length == 0) {
+
+        const user = await Users.query().findById(req.session.user.id);
+
+        const friends = await user
+            .$relatedQuery('friends');
+        
+        var friendIDs = [];
+
+        friends.forEach((friend) => {
+            friendIDs.push(friend.id);
+        });
+        
         ProgressHistory
             .query()
             .join('progress as p', 'progress_history.progress_id', 'p.id')
             .join('users as u', 'p.user_id', 'u.id')
             .where('u.id', '=', req.session.user.id)
+            .orWhereIn('u.id', friendIDs)
             .then(progressHistory => {
                 response.data = progressHistory;
                 res.status(200).send(response);
