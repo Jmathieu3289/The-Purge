@@ -20,8 +20,7 @@ class Users extends Model {
                     to: 'progress.user_id'
                 }
             },
-
-            friends: {
+            acceptedFriends: {
                 relation: Model.ManyToManyRelation,
                 modelClass: Users,
                 join: {
@@ -29,6 +28,18 @@ class Users extends Model {
                     through: {
                         from: 'friends.requester_user_id',
                         to: 'friends.accepter_user_id'
+                    },
+                    to: 'users.id'
+                }
+            },
+            requestedFriends: {
+                relation: Model.ManyToManyRelation,
+                modelClass: Users,
+                join: {
+                    from: 'users.id',
+                    through: {
+                        from: 'friends.accepter_user_id',
+                        to: 'friends.requester_user_id'
                     },
                     to: 'users.id'
                 }

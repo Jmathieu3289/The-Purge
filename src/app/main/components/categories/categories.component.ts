@@ -47,7 +47,7 @@ export class CategoriesComponent implements OnInit {
                         swal({
                             title: 'All Gone!',
                             type: 'success',
-                            timer: 800,
+                            timer: 1000,
                             showConfirmButton: false,
                         }).then((result) => {
                             this.getCategories();
@@ -90,7 +90,7 @@ export class CategoriesComponent implements OnInit {
                 swal({
                     title: 'Category Saved!',
                     type: 'success',
-                    timer: 800,
+                    timer: 1000,
                     showConfirmButton: false,
                 }).then((result) => {
                     this.submitted = false;
@@ -100,7 +100,7 @@ export class CategoriesComponent implements OnInit {
                 swal({
                     title: 'Error Saving Category!',
                     type: 'error',
-                    timer: 800,
+                    timer: 1000,
                     showConfirmButton: false,
                 }).then((result) => {
                     this.submitted = false;
@@ -120,7 +120,7 @@ export class CategoriesComponent implements OnInit {
                 swal({
                     title: 'Category Updated!',
                     type: 'success',
-                    timer: 800,
+                    timer: 1000,
                     showConfirmButton: false,
                 }).then((result) => {
                     this.submitted = false;
@@ -130,7 +130,7 @@ export class CategoriesComponent implements OnInit {
                 swal({
                     title: 'Error Updating Category!',
                     type: 'error',
-                    timer: 800,
+                    timer: 100,
                     showConfirmButton: false,
                 }).then((result) => {
                     this.submitted = false;

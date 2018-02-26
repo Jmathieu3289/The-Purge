@@ -80,9 +80,14 @@ router.get('/friends', async (req, res) => {
 
         const user = await Users.query().findById(req.session.user.id);
 
-        const friends = await user
-            .$relatedQuery('friends');
+        const acceptedFriends = await user
+            .$relatedQuery('acceptedFriends');
+        
+        const requestedFriends = await user
+            .$relatedQuery('requestedFriends');
 
+        const friends = acceptedFriends.concat(requestedFriends);
+            
         response.data = friends.map((friend) => {
             delete friend.password;
             return friend;
@@ -393,8 +398,13 @@ router.get('/progress_history', async (req, res) => {
 
         const user = await Users.query().findById(req.session.user.id);
 
-        const friends = await user
-            .$relatedQuery('friends');
+        const acceptedFriends = await user
+            .$relatedQuery('acceptedFriends');
+
+        const requestedFriends = await user
+            .$relatedQuery('requestedFriends');
+
+        const friends = acceptedFriends.concat(requestedFriends);
         
         var friendIDs = [];
 

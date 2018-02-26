@@ -62,7 +62,7 @@ export class SpendComponent implements OnInit {
                 swal({
                     title: 'Great work!',
                     text: t,
-                    timer: 800,
+                    timer: 1000,
                     type: 'success',
                     showConfirmButton: false,
                     allowOutsideClick: false
