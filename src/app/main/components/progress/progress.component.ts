@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 import { Component, OnInit } from '@angular/core';
 import { ProgressService } from '../../../services/progress.service';
 import { Progress } from '../../../models/progress';
@@ -36,9 +38,9 @@ export class ProgressComponent implements OnInit {
         this._progressService.getProgressHistory().subscribe(dbResponse => {
             this.progressHistoryList = dbResponse.data.map((progressHistory) => {
                 if (progressHistory.notes != null && progressHistory.notes != '') {
-                    progressHistory.notes = this.uncapitalizeFirstLetter(progressHistory.notes);
+                    progressHistory.notes = '"' + this.uncapitalizeFirstLetter(progressHistory.notes) + '"';
                 } else {
-                    progressHistory.notes = progressHistory.amount + ' item from ' + this.getCategoryName(progressHistory.progress_id) + '.';
+                    progressHistory.notes = progressHistory.amount + ' item' + (progressHistory.amount > 1 ? 's' : '') + ' from ' + progressHistory.progress_name + '.';
                 }
                 return progressHistory;
             });
@@ -50,13 +52,8 @@ export class ProgressComponent implements OnInit {
         return string.charAt(0).toLowerCase() + string.slice(1);
     }
 
-    private getCategoryName(progressID: number): string {
-        
-        let progress = this.progressList.find((progress) => {
-            return progress.id == progressID;
-        });
-
-        return progress ? this.uncapitalizeFirstLetter(progress.category) : 'something';
+    public getTimeSince(date: Date): string {
+        return moment(date).fromNow();
     }
 
 }

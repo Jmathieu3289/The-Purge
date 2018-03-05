@@ -9,10 +9,10 @@
                 </div>
                 <div class="m-2">
                     <div>
-                        <b>{{progressHistory.history_type == 1 ? 'purged' : 'got'}}</b> {{progressHistory.notes}}
+                        <a [routerLink]="'/users/'+progressHistory.user_id">{{progressHistory.first_name}}</a> <b>{{progressHistory.history_type == 1 ? 'purged' : 'got'}}</b> {{progressHistory.notes}}
                     </div>
                     <div class="font-weight-light text-muted">
-                        <small>{{progressHistory.history_date | date : 'short'}}</small>
+                        <small>{{getTimeSince(progressHistory.history_date)}}</small>
                     </div>
                 </div>
             </div>

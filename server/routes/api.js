@@ -414,10 +414,12 @@ router.get('/progress_history', async (req, res) => {
         
         ProgressHistory
             .query()
+            .select('u.first_name', 'u.id as user_id', 'p.category as progress_name', 'progress_history.*')
             .join('progress as p', 'progress_history.progress_id', 'p.id')
             .join('users as u', 'p.user_id', 'u.id')
             .where('u.id', '=', req.session.user.id)
             .orWhereIn('u.id', friendIDs)
+            .orderBy('progress_history.history_date', 'desc')
             .then(progressHistory => {
                 response.data = progressHistory;
                 res.status(200).send(response);

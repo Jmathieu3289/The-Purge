@@ -34,6 +34,7 @@
     "font-awesome": "^4.7.0",
     "knex": "^0.14.4",
     "mobile-drag-drop": "^2.3.0-rc.0",
+    "moment": "^2.21.0",
     "mysql": "^2.15.0",
     "ng2-dnd": "^5.0.2",
     "objection": "^0.9.4",
